@@ -40,11 +40,11 @@
       padding: 20px;
     }
     
-    .title {
+    .header-content {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: 12px;
+      gap: 30px;
     }
     
     .logo {
@@ -66,213 +66,242 @@
       font-size: 18px;
     }
     
-    .subtitle {
-      color: var(--muted);
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-btn {
+      background: var(--card);
+      color: var(--text);
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 1px solid rgba(126, 148, 255, .3);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .dropdown-btn:hover {
+      background: rgba(18, 23, 53, 0.8);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      margin-top: 8px;
+      background: rgba(18, 23, 53, 0.98);
+      min-width: 320px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(126, 148, 255, .3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      animation: fadeIn 0.2s ease;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .category {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid rgba(126, 148, 255, .16);
+    }
+    
+    .category:last-child {
+      border-bottom: none;
+    }
+    
+    .category-title {
       font-size: 14px;
-      margin-top: 4px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .tool-item {
+      display: block;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      color: var(--text);
+    }
+    
+    .tool-item:hover {
+      background: rgba(122, 162, 255, 0.15);
+      transform: translateX(4px);
+      text-decoration: none;
+    }
+    
+    .tool-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    
+    .tool-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
     }
     
     main {
-      padding: 40px 0;
-    }
-    
-    h2 {
-      font-size: 18px;
-      margin: 0 0 20px;
-      font-weight: 600;
-      opacity: .8;
-    }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-      margin-bottom: 40px;
-      justify-content: start;
-    }
-    
-    .card {
-      background: var(--card);
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid rgba(126, 148, 255, .08);
-      transition: all .2s;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .card:hover {
-      border-color: rgba(126, 148, 255, .24);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,.3);
-    }
-    
-    .card-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin: 0;
-    }
-    
-    .card-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 0;
-    }
-    
-    .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      background: rgba(122, 162, 255, .12);
-      border-radius: 6px;
-      font-size: 12px;
-      color: var(--accent);
-      margin-right: 6px;
-      margin-top: 4px;
-    }
-    
-    footer {
+      padding: 40px 20px;
       text-align: left;
-      padding: 20px;
-      font-size: 13px;
-      opacity: .6;
-      border-top: 1px solid rgba(126, 148, 255, .08);
+    }
+    
+    .welcome-message {
+      max-width: 800px;
+      margin: 0;
+    }
+    
+    .welcome-message h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #7aa2ff, #4b82ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .welcome-message p {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <div class="title">
+      <div class="header-content">
         <div class="logo">
           <div class="icon">🤖</div>
-          <div>
-            <div>AI Tools Hub</div>
-            <div class="subtitle">Популярные инструменты ИИ</div>
+          <span>AI Tools Hub</span>
+        </div>
+        
+        <div class="dropdown">
+          <button class="dropdown-btn">
+            <span>AI Tools</span>
+            <span>▼</span>
+          </button>
+          <div class="dropdown-content">
+            <!-- Разработка -->
+            <div class="category">
+              <div class="category-title">💻 Разработка и код</div>
+              <a href="https://github.com/features/copilot" class="tool-item">
+                <div class="tool-name">GitHub Copilot</div>
+                <div class="tool-desc">Автодополнение кода на основе ИИ</div>
+              </a>
+              <a href="https://www.cursor.com/" class="tool-item">
+                <div class="tool-name">Cursor</div>
+                <div class="tool-desc">IDE с встроенным ИИ-ассистентом</div>
+              </a>
+              <a href="https://replit.com/ai" class="tool-item">
+                <div class="tool-name">Replit AI</div>
+                <div class="tool-desc">Онлайн-разработка с помощью ИИ</div>
+              </a>
+            </div>
+            
+            <!-- Текст -->
+            <div class="category">
+              <div class="category-title">✍️ Текст и контент</div>
+              <a href="https://chat.openai.com/" class="tool-item">
+                <div class="tool-name">ChatGPT</div>
+                <div class="tool-desc">Диалоговый ИИ-помощник от OpenAI</div>
+              </a>
+              <a href="https://claude.ai/" class="tool-item">
+                <div class="tool-name">Claude</div>
+                <div class="tool-desc">ИИ-ассистент от Anthropic</div>
+              </a>
+              <a href="https://www.notion.so/product/ai" class="tool-item">
+                <div class="tool-name">Notion AI</div>
+                <div class="tool-desc">Генерация текста и заметки</div>
+              </a>
+            </div>
+            
+            <!-- Изображения -->
+            <div class="category">
+              <div class="category-title">🎨 Изображения и дизайн</div>
+              <a href="https://www.midjourney.com/" class="tool-item">
+                <div class="tool-name">Midjourney</div>
+                <div class="tool-desc">Генерация изображений по текстовому описанию</div>
+              </a>
+              <a href="https://openai.com/dall-e-3" class="tool-item">
+                <div class="tool-name">DALL-E 3</div>
+                <div class="tool-desc">ИИ от OpenAI для создания изображений</div>
+              </a>
+              <a href="https://www.canva.com/ai-image-generator/" class="tool-item">
+                <div class="tool-name">Canva AI</div>
+                <div class="tool-desc">Дизайн и генерация изображений в Canva</div>
+              </a>
+            </div>
+            
+            <!-- Видео -->
+            <div class="category">
+              <div class="category-title">🎬 Видео и аудио</div>
+              <a href="https://elevenlabs.io/" class="tool-item">
+                <div class="tool-name">ElevenLabs</div>
+                <div class="tool-desc">Реалистичный синтез речи</div>
+              </a>
+              <a href="https://runwayml.com/" class="tool-item">
+                <div class="tool-name">Runway</div>
+                <div class="tool-desc">Генерация и редактирование видео</div>
+              </a>
+              <a href="https://www.descript.com/" class="tool-item">
+                <div class="tool-name">Descript</div>
+                <div class="tool-desc">Редактирование аудио и видео через текст</div>
+              </a>
+            </div>
+            
+            <!-- Поиск -->
+            <div class="category">
+              <div class="category-title">🔍 Поиск и анализ</div>
+              <a href="https://www.perplexity.ai/" class="tool-item">
+                <div class="tool-name">Perplexity</div>
+                <div class="tool-desc">ИИ-поиск с ответами на вопросы</div>
+              </a>
+              <a href="https://you.com/" class="tool-item">
+                <div class="tool-name">You.com</div>
+                <div class="tool-desc">Поисковик с функциями ИИ</div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
-
+  
   <main>
-    <div class="container">
-      <section>
-        <h2>💻 Разработка и код</h2>
-        <div class="grid">
-          <a href="https://github.com/features/copilot" class="card">
-            <div class="card-title">GitHub Copilot</div>
-            <div class="card-desc">ИИ-помощник для программирования от GitHub и OpenAI</div>
-            <div><span class="tag">Код</span><span class="tag">IDE</span></div>
-          </a>
-          
-          <a href="https://cursor.sh" class="card">
-            <div class="card-title">Cursor</div>
-            <div class="card-desc">Редактор кода с встроенным ИИ</div>
-            <div><span class="tag">Код</span><span class="tag">Редактор</span></div>
-          </a>
-          
-          <a href="https://replit.com" class="card">
-            <div class="card-title">Replit AI</div>
-            <div class="card-desc">Онлайн IDE с ИИ-помощником</div>
-            <div><span class="tag">Код</span><span class="tag">Облако</span></div>
-          </a>
-        </div>
-      </section>
-
-      <section>
-        <h2>✍️ Текст и контент</h2>
-        <div class="grid">
-          <a href="https://chat.openai.com" class="card">
-            <div class="card-title">ChatGPT</div>
-            <div class="card-desc">Чат-бот для генерации текста и ответов на вопросы</div>
-            <div><span class="tag">Текст</span><span class="tag">Чат</span></div>
-          </a>
-          
-          <a href="https://claude.ai" class="card">
-            <div class="card-title">Claude</div>
-            <div class="card-desc">ИИ-ассистент от Anthropic для работы с текстом</div>
-            <div><span class="tag">Текст</span><span class="tag">Чат</span></div>
-          </a>
-          
-          <a href="https://notion.so/product/ai" class="card">
-            <div class="card-title">Notion AI</div>
-            <div class="card-desc">ИИ для заметок и документов</div>
-            <div><span class="tag">Заметки</span><span class="tag">Текст</span></div>
-          </a>
-        </div>
-      </section>
-
-      <section>
-        <h2>🎨 Изображения и дизайн</h2>
-        <div class="grid">
-          <a href="https://midjourney.com" class="card">
-            <div class="card-title">Midjourney</div>
-            <div class="card-desc">Генерация изображений из текста</div>
-            <div><span class="tag">Изображения</span><span class="tag">Арт</span></div>
-          </a>
-          
-          <a href="https://openai.com/dall-e-3" class="card">
-            <div class="card-title">DALL-E 3</div>
-            <div class="card-desc">ИИ от OpenAI для создания изображений</div>
-            <div><span class="tag">Изображения</span><span class="tag">Арт</span></div>
-          </a>
-          
-          <a href="https://www.canva.com/ai-image-generator/" class="card">
-            <div class="card-title">Canva AI</div>
-            <div class="card-desc">Дизайн и генерация изображений в Canva</div>
-            <div><span class="tag">Дизайн</span><span class="tag">Изображения</span></div>
-          </a>
-        </div>
-      </section>
-
-      <section>
-        <h2>🎬 Видео и аудио</h2>
-        <div class="grid">
-          <a href="https://elevenlabs.io" class="card">
-            <div class="card-title">ElevenLabs</div>
-            <div class="card-desc">Генерация голоса и озвучка текста</div>
-            <div><span class="tag">Аудио</span><span class="tag">Голос</span></div>
-          </a>
-          
-          <a href="https://runwayml.com" class="card">
-            <div class="card-title">Runway</div>
-            <div class="card-desc">Инструменты ИИ для видеомонтажа</div>
-            <div><span class="tag">Видео</span><span class="tag">Монтаж</span></div>
-          </a>
-          
-          <a href="https://www.descript.com" class="card">
-            <div class="card-title">Descript</div>
-            <div class="card-desc">Редактирование видео через транскрипцию</div>
-            <div><span class="tag">Видео</span><span class="tag">Аудио</span></div>
-          </a>
-        </div>
-      </section>
-
-      <section>
-        <h2>🔍 Поиск и анализ</h2>
-        <div class="grid">
-          <a href="https://perplexity.ai" class="card">
-            <div class="card-title">Perplexity</div>
-            <div class="card-desc">ИИ-поисковик с ответами и источниками</div>
-            <div><span class="tag">Поиск</span><span class="tag">Исследования</span></div>
-          </a>
-          
-          <a href="https://you.com" class="card">
-            <div class="card-title">You.com</div>
-            <div class="card-desc">Поисковик с ИИ-чатом</div>
-            <div><span class="tag">Поиск</span><span class="tag">Чат</span></div>
-          </a>
-        </div>
-      </section>
+    <div class="welcome-message">
+      <h1>Добро пожаловать!</h1>
+      <p>Выберите AI Tools в меню выше, чтобы увидеть коллекцию лучших ИИ-инструментов для разработки, работы с текстом, изображениями, видео и поиска информации.</p>
     </div>
   </main>
-
-  <footer>
-    <div class="container">
-      © 2025 AI Tools Hub • Коллекция инструментов ИИ
-    </div>
-  </footer>
 </body>
 </html>
