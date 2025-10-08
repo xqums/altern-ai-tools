@@ -15,47 +15,47 @@
     color: #fff8d4;
     font-family: 'Fixedsys', 'Courier New', monospace;
     margin: 0;
-    font-size: 13px;
+    font-size: 14.3px; /* увеличено на 10% */
   }
   .terminal {
     background: #16202b;
     margin: 28px auto;
-    max-width: 720px;
-    border-radius: 14px;
+    max-width: 790px;
+    border-radius: 15px;
     box-shadow: 0 0 28px #000b;
-    padding: 13px 17px;
+    padding: 16px 22px;
     border: 2px solid #263447;
     display: flex;
-    min-height: 215px;
+    min-height: 235px;
   }
   .sidebar {
-    min-width: 90px;
-    margin-right: 18px;
+    min-width: 100px;
+    margin-right: 22px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
   .bar {
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 9px;
     color: #21a0fa;
-    font-size: 0.9em;
+    font-size: 1em;
     font-family: 'Fixedsys', monospace;
     margin-left: 2px;
   }
   .category {
-    font-size: 0.82em;
-    width: 88px;
+    font-size: 0.9em; /* увеличено */
+    width: 98px;
     text-align: left;
     cursor: pointer;
     background: #202b37;
-    padding: 4px 6px;
-    border-radius: 3px;
+    padding: 6px 10px;
+    border-radius: 5px;
     color: #e4bf18;
     border: 1px solid #21a0fa30;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     font-family: 'Fixedsys', monospace;
-    transition: background .10s, color .10s;
+    transition: background .13s, color .13s;
     white-space: nowrap;
   }
   .category:hover, .category.active {
@@ -70,9 +70,9 @@
   }
   .main-info-desc {
     color: #b9caa0;
-    font-size: 0.82em;
-    margin-bottom: 6px;
-    margin-top: 6px;
+    font-size: 1em; /* увеличено */
+    margin-bottom: 8px;
+    margin-top: 8px;
   }
   .modal {
     display: none;
@@ -89,12 +89,12 @@
   .modal-content {
     background: #182230;
     color: #ffe889;
-    min-width: 190px;
-    padding: 10px 9px 14px 9px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px #000b;
+    min-width: 210px;
+    padding: 13px 13px 16px 13px;
+    border-radius: 10px;
+    box-shadow: 0 0 32px #000b;
     border: 2px solid #21a0fa;
-    font-size: 0.82em;
+    font-size: 0.93em;
     max-width: 80vw;
     font-family: 'Fixedsys', monospace;
   }
@@ -107,16 +107,16 @@
     border-radius: 6px;
     margin-top: -6px;
     margin-right: -7px;
-    padding: 0px 7px;
+    padding: 0px 9px;
     cursor: pointer;
     font-family: 'Fixedsys', monospace;
-    font-size: 0.89em;
+    font-size: 1em;
   }
   a.tool-link {
     color: #ffe889;
     text-decoration: underline;
   }
-  ul { margin-top:3px; padding-left:9px }
+  ul { margin-top:7px; padding-left:13px }
   </style>
 </head>
 <body>
@@ -132,7 +132,7 @@
     <div class="category" onclick="showModal('misc', this)">🛠️ Разное</div>
   </div>
   <div class="main-info">
-    <div style="font-size:0.92em;margin-bottom:6px;">user@alt-ai:~$ help</div>
+    <div style="font-size:1em;margin-bottom:9px;">user@alt-ai:~$ help</div>
     <div class="main-info-desc">
       <b>Выберите категорию слева — появится окно популярных AI-инструментов.<br>
       Наведите курсор на название инструмента — увидите подсказку.</b>
