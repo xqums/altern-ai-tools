@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>~ $ ai-tools-hub</title>
-  <meta name="description" content="Альтернативные AI-инструменты по категориям в терминальном стиле" />
+  <meta name="description" content="Альтернативные AI-инструменты по категориям в терминальном стиле"/>
   <!-- WinBox.js -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/css/winbox.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/css/winbox.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/winbox.bundle.min.js"></script>
   <style>
-    :root{--bg:#020817;--panel:#0b1224;--panel-2:#0f1a33;--text:#e6ecff;--muted:#9fb3ff;--blue:#047be3;--yellow:#ffc600;--border:#1b2a55}
+    :root{--bg:#000;--panel:#232323;--panel-2:#1a1a1a;--text:#fff;--muted:#ccc;--blue:#047be3;--yellow:#ffc600;--border:#444}
     *{box-sizing:border-box}html,body{height:100%}
-    body{margin:0;background:#020817;color:var(--text);font:15px/1.6 ui-monospace,Menlo,Consolas,monospace}
+    body{margin:0;background:#000;color:#fff;font:15px/1.6 Fixedsys,ui-monospace,Menlo,Consolas,monospace}
     a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-    .term-bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;height:52px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--border)}
+    .term-bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;height:52px;padding:0 16px;background:#232323;border-bottom:1px solid var(--border)}
     .dots{display:flex;gap:8px}.dot{width:12px;height:12px;border-radius:50%}.dot.red{background:#ff5f56}.dot.yellow{background:#ffbd2e}.dot.green{background:#27c93f}
     .prompt{color:var(--yellow)}.title{color:var(--blue);font-weight:700}
     .shell{max-width:1100px;margin:28px auto;padding:0 16px}
     .line{display:flex;gap:10px}.ps1{color:var(--yellow)}.cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}
-    .cmd{background:var(--panel);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:10px;cursor:pointer;transition:transform .12s ease,background .2s ease,border-color .2s ease;text-align:left}
-    .cmd:hover{transform:translateY(-1px);background:var(--panel-2);border-color:#23407a}.cmd b{color:var(--blue)}.hint{color:var(--muted);font-size:12px;margin-top:4px}
+    .cmd{background:#232323;border:1px solid var(--border);color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;transition:transform .12s ease,background .2s ease,border-color .2s ease;text-align:left;font-family:Fixedsys,ui-monospace,Menlo,Consolas,monospace}
+    .cmd:hover{transform:translateY(-1px);background:#1a1a1a;border-color:#666}.cmd b{color:var(--blue)}.hint{color:var(--muted);font-size:12px;margin-top:4px}
     .win-content{display:none}
+    .wb-body{background:#232323!important;color:#fff!important;font-family:Fixedsys,ui-monospace,Menlo,Consolas,monospace!important}
+    .wb-body ul{padding-left:20px}.wb-body li{margin:8px 0}.wb-body a{color:var(--blue)}
   </style>
 </head>
 <body>
@@ -41,84 +43,73 @@
       <button class="cmd" data-win="misc-tools"><b>ai</b> list misc</button>
     </section>
   </main>
-
-  <div id="dev-tools" class="win-content"><h3>Разработка и код</h3><ul>
-    <li><a href="https://github.com/features/copilot" target="_blank" rel="noopener">GitHub Copilot</a></li>
-    <li><a href="https://cursor.sh/" target="_blank" rel="noopener">Cursor</a></li>
-    <li><a href="https://codeium.com/" target="_blank" rel="noopener">Codeium</a></li>
-    <li><a href="https://tabnine.com/" target="_blank" rel="noopener">Tabnine</a></li>
-    <li><a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face</a></li>
-    <li><a href="https://replit.com/ai" target="_blank" rel="noopener">Replit AI</a></li>
+  <div class="win-content" id="dev-tools">Разработка и код<ul>
+    <a href="https://github.com/features/copilot" rel="noopener" target="_blank">GitHub Copilot</a>
+    <a href="https://cursor.sh/" rel="noopener" target="_blank">Cursor</a>
+    <a href="https://codeium.com/" rel="noopener" target="_blank">Codeium</a>
+    <a href="https://tabnine.com/" rel="noopener" target="_blank">Tabnine</a>
+    <a href="https://huggingface.co/" rel="noopener" target="_blank">Hugging Face</a>
+    <a href="https://replit.com/ai" rel="noopener" target="_blank">Replit AI</a>
   </ul></div>
-
-  <div id="text-tools" class="win-content"><h3>Текст и чат</h3><ul>
-    <li><a href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a></li>
-    <li><a href="https://claude.ai/" target="_blank" rel="noopener">Claude</a></li>
-    <li><a href="https://gemini.google.com/" target="_blank" rel="noopener">Gemini</a></li>
-    <li><a href="https://www.jasper.ai/" target="_blank" rel="noopener">Jasper</a></li>
-    <li><a href="https://perplexity.ai/" target="_blank" rel="noopener">Perplexity</a></li>
-    <li><a href="https://novelai.net/" target="_blank" rel="noopener">NovelAI</a></li>
+  <div class="win-content" id="text-tools">Текст и чат<ul>
+    <a href="https://chatgpt.com/" rel="noopener" target="_blank">ChatGPT</a>
+    <a href="https://claude.ai/" rel="noopener" target="_blank">Claude</a>
+    <a href="https://gemini.google.com/" rel="noopener" target="_blank">Gemini</a>
+    <a href="https://www.jasper.ai/" rel="noopener" target="_blank">Jasper</a>
+    <a href="https://perplexity.ai/" rel="noopener" target="_blank">Perplexity</a>
+    <a href="https://novelai.net/" rel="noopener" target="_blank">NovelAI</a>
   </ul></div>
-
-  <div id="image-tools" class="win-content"><h3>Изображения</h3><ul>
-    <li><a href="https://www.midjourney.com/" target="_blank" rel="noopener">Midjourney</a></li>
-    <li><a href="https://openai.com/dall-e-3" target="_blank" rel="noopener">DALL·E</a></li>
-    <li><a href="https://stability.ai/" target="_blank" rel="noopener">Stable Diffusion</a></li>
-    <li><a href="https://ideogram.ai/" target="_blank" rel="noopener">Ideogram</a></li>
-    <li><a href="https://www.canva.com/" target="_blank" rel="noopener">Canva</a></li>
+  <div class="win-content" id="image-tools">Изображения<ul>
+    <a href="https://www.midjourney.com/" rel="noopener" target="_blank">Midjourney</a>
+    <a href="https://openai.com/dall-e-3" rel="noopener" target="_blank">DALL·E</a>
+    <a href="https://stability.ai/" rel="noopener" target="_blank">Stable Diffusion</a>
+    <a href="https://ideogram.ai/" rel="noopener" target="_blank">Ideogram</a>
+    <a href="https://www.canva.com/" rel="noopener" target="_blank">Canva</a>
   </ul></div>
-
-  <div id="audio-tools" class="win-content"><h3>Аудио/Речь</h3><ul>
-    <li><a href="https://elevenlabs.io/" target="_blank" rel="noopener">ElevenLabs</a></li>
-    <li><a href="https://www.openai.com/research/whisper" target="_blank" rel="noopener">Whisper</a></li>
-    <li><a href="https://www.descript.com/" target="_blank" rel="noopener">Descript</a></li>
-    <li><a href="https://voicemod.net/" target="_blank" rel="noopener">Voicemod</a></li>
+  <div class="win-content" id="audio-tools">Аудио/Речь<ul>
+    <a href="https://elevenlabs.io/" rel="noopener" target="_blank">ElevenLabs</a>
+    <a href="https://www.openai.com/research/whisper" rel="noopener" target="_blank">Whisper</a>
+    <a href="https://www.descript.com/" rel="noopener" target="_blank">Descript</a>
+    <a href="https://voicemod.net/" rel="noopener" target="_blank">Voicemod</a>
   </ul></div>
-
-  <div id="video-tools" class="win-content"><h3>Видео</h3><ul>
-    <li><a href="https://runwayml.com/" target="_blank" rel="noopener">Runway</a></li>
-    <li><a href="https://pika.art/" target="_blank" rel="noopener">Pika</a></li>
-    <li><a href="https://kapwing.com/" target="_blank" rel="noopener">Kapwing</a></li>
-    <li><a href="https://www.veed.io/" target="_blank" rel="noopener">VEED</a></li>
+  <div class="win-content" id="video-tools">Видео<ul>
+    <a href="https://runwayml.com/" rel="noopener" target="_blank">Runway</a>
+    <a href="https://pika.art/" rel="noopener" target="_blank">Pika</a>
+    <a href="https://kapwing.com/" rel="noopener" target="_blank">Kapwing</a>
+    <a href="https://www.veed.io/" rel="noopener" target="_blank">VEED</a>
   </ul></div>
-
-  <div id="research-tools" class="win-content"><h3>Исследования / LLM / данные</h3><ul>
-    <li><a href="https://arxiv.org/" target="_blank" rel="noopener">arXiv</a></li>
-    <li><a href="https://paperswithcode.com/" target="_blank" rel="noopener">Papers with Code</a></li>
-    <li><a href="https://www.kaggle.com/" target="_blank" rel="noopener">Kaggle</a></li>
-    <li><a href="https://platform.openai.com/" target="_blank" rel="noopener">OpenAI Platform</a></li>
-    <li><a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Vertex AI</a></li>
-    <li><a href="https://huggingface.co/spaces" target="_blank" rel="noopener">HF Spaces</a></li>
+  <div class="win-content" id="research-tools">Исследования / LLM / данные<ul>
+    <a href="https://arxiv.org/" rel="noopener" target="_blank">arXiv</a>
+    <a href="https://paperswithcode.com/" rel="noopener" target="_blank">Papers with Code</a>
+    <a href="https://www.kaggle.com/" rel="noopener" target="_blank">Kaggle</a>
+    <a href="https://platform.openai.com/" rel="noopener" target="_blank">OpenAI Platform</a>
+    <a href="https://cloud.google.com/vertex-ai" rel="noopener" target="_blank">Vertex AI</a>
+    <a href="https://huggingface.co/spaces" rel="noopener" target="_blank">HF Spaces</a>
   </ul></div>
-
-  <div id="productivity-tools" class="win-content"><h3>Продуктивность</h3><ul>
-    <li><a href="https://zapier.com/" target="_blank" rel="noopener">Zapier</a></li>
-    <li><a href="https://ifttt.com/" target="_blank" rel="noopener">IFTTT</a></li>
-    <li><a href="https://notion.so/" target="_blank" rel="noopener">Notion AI</a></li>
-    <li><a href="https://microsoft.com/" target="_blank" rel="noopener">Microsoft Copilot</a></li>
-    <li><a href="https://slack.com/" target="_blank" rel="noopener">Slack AI</a></li>
+  <div class="win-content" id="productivity-tools">Продуктивность<ul>
+    <a href="https://zapier.com/" rel="noopener" target="_blank">Zapier</a>
+    <a href="https://ifttt.com/" rel="noopener" target="_blank">IFTTT</a>
+    <a href="https://notion.so/" rel="noopener" target="_blank">Notion AI</a>
+    <a href="https://microsoft.com/" rel="noopener" target="_blank">Microsoft Copilot</a>
+    <a href="https://slack.com/" rel="noopener" target="_blank">Slack AI</a>
   </ul></div>
-
-  <div id="infra-tools" class="win-content"><h3>Инфраструктура / интеграции</h3><ul>
-    <li><a href="https://langchain.com/" target="_blank" rel="noopener">LangChain</a></li>
-    <li><a href="https://llamaindex.ai/" target="_blank" rel="noopener">LlamaIndex</a></li>
-    <li><a href="https://api.nvidia.com/" target="_blank" rel="noopener">NVIDIA APIs</a></li>
-    <li><a href="https://openrouter.ai/" target="_blank" rel="noopener">OpenRouter</a></li>
-    <li><a href="https://replicate.com/" target="_blank" rel="noopener">Replicate</a></li>
+  <div class="win-content" id="infra-tools">Инфраструктура / интеграции<ul>
+    <a href="https://langchain.com/" rel="noopener" target="_blank">LangChain</a>
+    <a href="https://llamaindex.ai/" rel="noopener" target="_blank">LlamaIndex</a>
+    <a href="https://api.nvidia.com/" rel="noopener" target="_blank">NVIDIA APIs</a>
+    <a href="https://openrouter.ai/" rel="noopener" target="_blank">OpenRouter</a>
+    <a href="https://replicate.com/" rel="noopener" target="_blank">Replicate</a>
   </ul></div>
-
-  <div id="design-tools" class="win-content"><h3>Дизайн / UI</h3><ul>
-    <li><a href="https://uizard.io/" target="_blank" rel="noopener">Uizard</a></li>
-    <li><a href="https://www.figma.com/ai/" target="_blank" rel="noopener">Figma AI</a></li>
-    <li><a href="https://framer.com/ai" target="_blank" rel="noopener">Framer AI</a></li>
+  <div class="win-content" id="design-tools">Дизайн / UI<ul>
+    <a href="https://uizard.io/" rel="noopener" target="_blank">Uizard</a>
+    <a href="https://www.figma.com/ai/" rel="noopener" target="_blank">Figma AI</a>
+    <a href="https://framer.com/ai" rel="noopener" target="_blank">Framer AI</a>
   </ul></div>
-
-  <div id="misc-tools" class="win-content"><h3>Разное</h3><ul>
-    <li><a href="https://www.copy.ai/" target="_blank" rel="noopener">Copy.ai</a></li>
-    <li><a href="https://www.notion.so/product/ai" target="_blank" rel="noopener">Notion AI</a></li>
-    <li><a href="https://airtable.com/" target="_blank" rel="noopener">Airtable AI</a></li>
+  <div class="win-content" id="misc-tools">Разное<ul>
+    <a href="https://www.copy.ai/" rel="noopener" target="_blank">Copy.ai</a>
+    <a href="https://www.notion.so/product/ai" rel="noopener" target="_blank">Notion AI</a>
+    <a href="https://airtable.com/" rel="noopener" target="_blank">Airtable AI</a>
   </ul></div>
-
   <script>
     const openWindows = new Map();
     const spacing = 14;
@@ -144,7 +135,7 @@
       if(openWindows.has(id)) { openWindows.get(id).focus(); return; }
       const box = new WinBox({
         title,
-        background: 'rgba(4,123,227,.12)',
+        background: '#232323',
         border: 1,
         class: ['no-full','modern'],
         x: spacing + (openWindows.size%3)*(360+spacing),
