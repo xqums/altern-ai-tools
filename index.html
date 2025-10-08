@@ -3,246 +3,360 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>altern.ai + AI Tools Hub</title>
-  <meta name="description" content="Единая страница: altern.ai и популярные ИИ‑инструменты для быстрого старта">
+  <title>AI Tools Hub</title>
+  <meta name="description" content="Коллекция популярных ИИ-инструментов для разработки, творчества и работы">
   <style>
-    :root{--bg:#0b1020;--card:#121735;--muted:#8ea0ff;--text:#e8ecff;--accent:#7aa2ff;--ring:#3b82f6}
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,Inter,Arial,sans-serif}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    header{position:sticky;top:0;background:rgba(11,16,32,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgba(126,148,255,.16)}
-    .container{max-width:1100px;margin:0 auto;padding:20px}
-    .title{display:flex;align-items:center;gap:12px}
-    .badge{font-size:12px;padding:4px 8px;border:1px solid rgba(126,148,255,.3);border-radius:999px;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-    .card{background:var(--card);border:1px solid rgba(126,148,255,.2);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
-    .desc{color:#c9d3ff;font-size:14px;line-height:1.45}
-    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    input,select,button{border-radius:10px;border:1px solid rgba(126,148,255,.35);background:#0e1430;color:var(--text);padding:10px 12px;font:inherit}
-    input:focus,select:focus,button:focus{outline:none;box-shadow:0 0 0 3px rgba(59,130,246,.35);border-color:var(--ring)}
-    button.primary{background:linear-gradient(180deg,#6ea1ff,#4b82ff);border:none;color:#fff;font-weight:700}
-    .muted{color:#aab7ff;font-size:12px}
-    .section{margin:28px 0 10px;display:flex;align-items:center;justify-content:space-between}
-    .section h2{margin:0;font-size:20px}
-    .pill{padding:6px 10px;border-radius:999px;background:#0e1535;border:1px solid rgba(126,148,255,.25)}
-    .two{display:grid;grid-template-columns:1fr;gap:16px}
-    @media (min-width:880px){.two{grid-template-columns:1.3fr .7fr}}
-    footer{border-top:1px solid rgba(126,148,255,.16);margin-top:28px}
-    .small{font-size:12px;color:#9fb0ff}
+    :root {
+      --bg: #0b1020;
+      --card: #121735;
+      --muted: #8ea0ff;
+      --text: #e8ecff;
+      --accent: #7aa2ff;
+      --ring: #3b82f6;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, Inter, Arial, sans-serif;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(11, 16, 32, .9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(126, 148, 255, .16);
+      z-index: 100;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #6ea1ff, #4b82ff);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    
+    .category {
+      margin: 32px 0 16px;
+    }
+    
+    .category h2 {
+      margin: 0 0 16px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+    
+    .category-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: white;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(126, 148, 255, .2);
+      border-radius: 12px;
+      padding: 16px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .card-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+    }
+    
+    .card h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .card p {
+      margin: 0;
+      font-size: 13px;
+      color: #c9d3ff;
+      line-height: 1.4;
+    }
+    
+    .row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    footer {
+      border-top: 1px solid rgba(126, 148, 255, .16);
+      margin-top: 40px;
+      padding-top: 20px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .small {
+      font-size: 12px;
+      color: #9fb0ff;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="container title">
-      <strong>altern.ai + AI Tools Hub</strong>
-      <span class="badge">Все в одном месте</span>
+      <div class="logo">
+        <div class="icon">🤖</div>
+        AI Tools Hub
+      </div>
+      <a href="https://github.com/xqums/altern-ai-tools" target="_blank">GitHub</a>
     </div>
   </header>
-
+  
   <main class="container">
-    <section class="section">
-      <h2>Altern.ai</h2>
-      <span class="pill">интеграции и быстрый старт</span>
-    </section>
-    <div class="two">
-      <div class="card">
-        <div class="row"><strong>Подключение API ключа Altern.ai</strong></div>
-        <p class="desc">Вставьте ваш API‑ключ Altern.ai, чтобы использовать совместимые инструменты из списка ниже напрямую.</p>
-        <div class="row">
-          <input id="alternKey" type="password" placeholder="ALTERN_API_KEY" style="flex:1;min-width:220px">
-          <button class="primary" onclick="saveKey()">Сохранить ключ</button>
-          <button onclick="clearKey()">Очистить</button>
+    <div class="category">
+      <h2>
+        <div class="category-icon">💬</div>
+        Чаты и ассистенты
+      </h2>
+      <div class="grid">
+        <div class="card" onclick="openTool('https://chat.openai.com')">
+          <div class="card-header">
+            <div class="card-icon">🔥</div>
+            <h3>ChatGPT</h3>
+          </div>
+          <p>Самый популярный ИИ-ассистент от OpenAI</p>
         </div>
-        <p class="muted">Ключ хранится в localStorage вашего браузера и не отправляется на сервер этого сайта.</p>
-      </div>
-      <div class="card">
-        <strong>Полезные ссылки</strong>
-        <div class="grid" style="grid-template-columns:1fr 1fr">
-          <a href="https://altern.ai" target="_blank">altern.ai</a>
-          <a href="https://docs.altern.ai" target="_blank">Документация</a>
-          <a href="https://altern.ai/pricing" target="_blank">Тарифы</a>
-          <a href="https://altern.ai/dashboard" target="_blank">Личный кабинет</a>
+        
+        <div class="card" onclick="openTool('https://claude.ai')">
+          <div class="card-header">
+            <div class="card-icon">🧠</div>
+            <h3>Claude</h3>
+          </div>
+          <p>ИИ-помощник от Anthropic для сложных задач</p>
         </div>
-      </div>
-    </div>
-
-    <section class="section">
-      <h2>Инструменты ИИ</h2>
-      <span class="pill">чаты, генерация, заметки, видео</span>
-    </section>
-
-    <div class="grid" id="tools">
-      <!-- Chat tools -->
-      <div class="card">
-        <strong>ChatGPT</strong>
-        <p class="desc">Мощный чат‑ассистент от OpenAI для текста и кода.</p>
-        <div class="row">
-          <a class="primary" href="https://chat.openai.com" target="_blank"><button class="primary">Открыть</button></a>
-          <a href="https://platform.openai.com/api-keys" target="_blank">API ключ</a>
+        
+        <div class="card" onclick="openTool('https://gemini.google.com')">
+          <div class="card-header">
+            <div class="card-icon">💎</div>
+            <h3>Gemini</h3>
+          </div>
+          <p>ИИ от Google с мультимодальными возможностями</p>
         </div>
-      </div>
-
-      <div class="card">
-        <strong>Claude</strong>
-        <p class="desc">Ассистент Anthropic с длинным контекстом и высоким качеством ответов.</p>
-        <div class="row">
-          <a class="primary" href="https://claude.ai" target="_blank"><button class="primary">Открыть</button></a>
-          <a href="https://console.anthropic.com/" target="_blank">API ключ</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Gemini</strong>
-        <p class="desc">Мультимодальные модели Google для текста и изображений.</p>
-        <div class="row">
-          <a class="primary" href="https://gemini.google.com" target="_blank"><button class="primary">Открыть</button></a>
-          <a href="https://ai.google.dev/" target="_blank">API ключ</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>GitHub Copilot</strong>
-        <p class="desc">Помощник программиста в IDE и на GitHub.</p>
-        <div class="row">
-          <a class="primary" href="https://github.com/copilot" target="_blank"><button class="primary">Открыть</button></a>
-          <a href="https://github.com/settings/copilot" target="_blank">Настройки</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Perplexity</strong>
-        <p class="desc">Поисково‑ответный ИИ с цитатами из источников.</p>
-        <div class="row">
-          <a class="primary" href="https://www.perplexity.ai" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Grok</strong>
-        <p class="desc">Модель xAI с доступом к актуальным данным.</p>
-        <div class="row">
-          <a class="primary" href="https://grok.com" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>GigaChat</strong>
-        <p class="desc">Российская модель от Сбера для диалогов и генерации.</p>
-        <div class="row">
-          <a class="primary" href="https://gigachat.sber.ru" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Алиса</strong>
-        <p class="desc">Голосовой помощник Яндекса, доступен в Яндекс.Браузере и приложениях.</p>
-        <div class="row">
-          <a class="primary" href="https://alice.yandex.ru/" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <!-- Image generation -->
-      <div class="card">
-        <strong>DALL‑E</strong>
-        <p class="desc">Генерация изображений по текстовым описаниям от OpenAI.</p>
-        <div class="row">
-          <a class="primary" href="https://labs.openai.com" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Midjourney</strong>
-        <p class="desc">Популярный генератор изображений через Discord‑бота.</p>
-        <div class="row">
-          <a class="primary" href="https://www.midjourney.com" target="_blank"><button class="primary">Открыть</button></a>
-          <a href="https://discord.gg/midjourney" target="_blank">Discord</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Recraft</strong>
-        <p class="desc">Генерация и редактирование векторной и растровой графики.</p>
-        <div class="row">
-          <a class="primary" href="https://www.recraft.ai" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <!-- Video/voice -->
-      <div class="card">
-        <strong>Sora</strong>
-        <p class="desc">Экспериментальная генерация видео от OpenAI (ожидание публичного доступа).</p>
-        <div class="row">
-          <a class="primary" href="https://openai.com/sora" target="_blank"><button class="primary">Подробнее</button></a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Synthesia</strong>
-        <p class="desc">Создание видео с аватарами из текста, локализация и шаблоны.</p>
-        <div class="row">
-          <a class="primary" href="https://www.synthesia.io" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Fireflies</strong>
-        <p class="desc">Транскрибация и заметки по созвонам, поиск по встречам.</p>
-        <div class="row">
-          <a class="primary" href="https://fireflies.ai" target="_blank"><button class="primary">Открыть</button></a>
-        </div>
-      </div>
-
-      <div class="card">
-        <strong>Uizard</strong>
-        <p class="desc">Быстрое прототипирование интерфейсов и генерация UI по описанию.</p>
-        <div class="row">
-          <a class="primary" href="https://uizard.io" target="_blank"><button class="primary">Открыть</button></a>
+        
+        <div class="card" onclick="openTool('https://www.perplexity.ai')">
+          <div class="card-header">
+            <div class="card-icon">🔍</div>
+            <h3>Perplexity</h3>
+          </div>
+          <p>ИИ-поиск с источниками и актуальной информацией</p>
         </div>
       </div>
     </div>
-
-    <section class="section">
-      <h2>Использование ключа Altern.ai в инструментах</h2>
-      <span class="pill">локально в браузере</span>
-    </section>
-    <div class="card">
-      <p class="desc">Некоторые клиенты совместимы с Altern.ai API. Ваш ключ будет автоматически подставляться в запросы из этого браузера через window.localStorage.</p>
-      <div class="row small">
-        <span>Сохранённый ключ: <code id="keyPreview">—</code></span>
-        <button onclick="copyKey()">Копировать</button>
+    
+    <div class="category">
+      <h2>
+        <div class="category-icon">🎨</div>
+        Генерация изображений
+      </h2>
+      <div class="grid">
+        <div class="card" onclick="openTool('https://www.midjourney.com')">
+          <div class="card-header">
+            <div class="card-icon">🖼️</div>
+            <h3>Midjourney</h3>
+          </div>
+          <p>Высококачественная генерация изображений через Discord</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://stability.ai')">
+          <div class="card-header">
+            <div class="card-icon">🎯</div>
+            <h3>Stable Diffusion</h3>
+          </div>
+          <p>Open-source генератор изображений</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://openai.com/dall-e-3')">
+          <div class="card-header">
+            <div class="card-icon">🎭</div>
+            <h3>DALL-E 3</h3>
+          </div>
+          <p>Генератор изображений от OpenAI</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://firefly.adobe.com')">
+          <div class="card-header">
+            <div class="card-icon">🔥</div>
+            <h3>Adobe Firefly</h3>
+          </div>
+          <p>ИИ-инструменты Adobe для творчества</p>
+        </div>
       </div>
     </div>
-
-    <footer class="container small">
-      <p>Проект: altern-ai-tools · GitHub Pages. Связь: <a href="https://github.com/xqums/altern-ai-tools" target="_blank">репозиторий</a>.</p>
-    </footer>
+    
+    <div class="category">
+      <h2>
+        <div class="category-icon">🎬</div>
+        Видео и голос
+      </h2>
+      <div class="grid">
+        <div class="card" onclick="openTool('https://runwayml.com')">
+          <div class="card-header">
+            <div class="card-icon">🎥</div>
+            <h3>Runway</h3>
+          </div>
+          <p>Генерация и редактирование видео с помощью ИИ</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://elevenlabs.io')">
+          <div class="card-header">
+            <div class="card-icon">🎤</div>
+            <h3>ElevenLabs</h3>
+          </div>
+          <p>Синтез речи и клонирование голоса</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://mubert.com')">
+          <div class="card-header">
+            <div class="card-icon">🎵</div>
+            <h3>Mubert</h3>
+          </div>
+          <p>Генерация музыки с помощью ИИ</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://www.synthesia.io')">
+          <div class="card-header">
+            <div class="card-icon">👤</div>
+            <h3>Synthesia</h3>
+          </div>
+          <p>Создание видео с ИИ-аватарами</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="category">
+      <h2>
+        <div class="category-icon">⚡</div>
+        Devtools
+      </h2>
+      <div class="grid">
+        <div class="card" onclick="openTool('https://github.com/features/copilot')">
+          <div class="card-header">
+            <div class="card-icon">💻</div>
+            <h3>GitHub Copilot</h3>
+          </div>
+          <p>ИИ-помощник для программирования</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://codeium.com')">
+          <div class="card-header">
+            <div class="card-icon">🚀</div>
+            <h3>Codeium</h3>
+          </div>
+          <p>Бесплатная альтернativa Copilot</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://www.cursor.com')">
+          <div class="card-header">
+            <div class="card-icon">📝</div>
+            <h3>Cursor</h3>
+          </div>
+          <p>IDE с встроенным ИИ-помощником</p>
+        </div>
+        
+        <div class="card" onclick="openTool('https://v0.dev')">
+          <div class="card-header">
+            <div class="card-icon">⚡</div>
+            <h3>V0</h3>
+          </div>
+          <p>Генерация React компонентов от Vercel</p>
+        </div>
+      </div>
+    </div>
   </main>
-
+  
+  <footer>
+    <div class="container footer-content">
+      <div class="small">AI Tools Hub - коллекция лучших ИИ-инструментов</div>
+      <div class="small">
+        <a href="https://github.com/xqums/altern-ai-tools" target="_blank">GitHub</a> • 
+        Создано для удобства разработчиков
+      </div>
+    </div>
+  </footer>
+  
   <script>
-    const KEY_NAME = 'ALTERN_API_KEY';
-    function saveKey(){
-      const v = document.getElementById('alternKey').value.trim();
-      if(!v){alert('Введите ключ');return}
-      localStorage.setItem(KEY_NAME, v);
-      updatePreview();
-      alert('Ключ сохранён локально');
+    function openTool(url) {
+      window.open(url, '_blank');
     }
-    function clearKey(){
-      localStorage.removeItem(KEY_NAME);
-      document.getElementById('alternKey').value='';
-      updatePreview();
-    }
-    function copyKey(){
-      const v = localStorage.getItem(KEY_NAME);
-      if(!v){alert('Ключ не найден');return}
-      navigator.clipboard.writeText(v).then(()=>alert('Скопировано'));
-    }
-    function updatePreview(){
-      const v = localStorage.getItem(KEY_NAME);
-      document.getElementById('keyPreview').textContent = v? (v.slice(0,4)+'…'+v.slice(-4)) : '—';
-    }
-    updatePreview();
   </script>
 </body>
 </html>
