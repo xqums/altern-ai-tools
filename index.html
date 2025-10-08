@@ -15,59 +15,64 @@
     color: #fff8d4;
     font-family: 'Fixedsys', 'Courier New', monospace;
     margin: 0;
+    font-size: 13px;
   }
   .terminal {
     background: #16202b;
-    margin: 40px auto;
-    max-width: 870px;
-    border-radius: 18px;
-    box-shadow: 0 0 36px #000c;
-    padding: 32px 36px;
+    margin: 28px auto;
+    max-width: 720px;
+    border-radius: 14px;
+    box-shadow: 0 0 28px #000b;
+    padding: 13px 17px;
     border: 2px solid #263447;
     display: flex;
-    min-height: 470px;
-    flex-direction: row;
-    justify-content: space-between;
+    min-height: 215px;
+  }
+  .sidebar {
+    min-width: 90px;
+    margin-right: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bar {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #21a0fa;
+    font-size: 0.9em;
+    font-family: 'Fixedsys', monospace;
+    margin-left: 2px;
+  }
+  .category {
+    font-size: 0.82em;
+    width: 88px;
+    text-align: left;
+    cursor: pointer;
+    background: #202b37;
+    padding: 4px 6px;
+    border-radius: 3px;
+    color: #e4bf18;
+    border: 1px solid #21a0fa30;
+    margin-bottom: 3px;
+    font-family: 'Fixedsys', monospace;
+    transition: background .10s, color .10s;
+    white-space: nowrap;
+  }
+  .category:hover, .category.active {
+    background: #151b23;
+    color: #fff;
   }
   .main-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-right: 42px;
   }
-  .sidebar-right {
-    min-width: 210px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  .bar {
-    font-weight: bold;
-    margin-bottom: 26px;
-    color: #21a0fa;
-    font-size: 1.24em;
-    font-family: 'Fixedsys', monospace;
-    text-align: right;
-    width: 100%;
-  }
-  .category {
-    font-size: 1.13em;
-    width: 93%;
-    text-align: right;
-    cursor: pointer;
-    background: #202b37;
-    padding: 14px 19px 14px 16px;
-    border-radius: 7px;
-    color: #e4bf18;
-    border: 1px solid #21a0fa50;
-    margin-bottom: 14px;
-    font-family: 'Fixedsys', monospace;
-    transition: background .16s, color .16s;
-  }
-  .category:hover, .category.active {
-    background: #151b23;
-    color: #fff;
+  .main-info-desc {
+    color: #b9caa0;
+    font-size: 0.82em;
+    margin-bottom: 6px;
+    margin-top: 6px;
   }
   .modal {
     display: none;
@@ -84,13 +89,13 @@
   .modal-content {
     background: #182230;
     color: #ffe889;
-    min-width: 410px;
-    padding: 26px 34px;
-    border-radius: 14px;
-    box-shadow: 0 0 48px #000b;
+    min-width: 190px;
+    padding: 10px 9px 14px 9px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #000b;
     border: 2px solid #21a0fa;
-    font-size: 1.04em;
-    max-width: 85vw;
+    font-size: 0.82em;
+    max-width: 80vw;
     font-family: 'Fixedsys', monospace;
   }
   .button-close {
@@ -99,38 +104,39 @@
     color: #fff;
     font-weight: bold;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     margin-top: -6px;
-    margin-right: -10px;
-    padding: 0px 16px;
+    margin-right: -7px;
+    padding: 0px 7px;
     cursor: pointer;
     font-family: 'Fixedsys', monospace;
+    font-size: 0.89em;
   }
   a.tool-link {
     color: #ffe889;
     text-decoration: underline;
   }
-  ul { margin-top:8px; padding-left:18px }
+  ul { margin-top:3px; padding-left:9px }
   </style>
 </head>
 <body>
 <div class="terminal">
-  <div class="main-info">
-    <div style="font-size:1.08em;margin-bottom:22px;">user@alt-ai:~$ help</div>
-    <div style="color:#b9caa0;font-size:1em;">
-      <b>Выберите категорию справа — появится окно популярных AI-инструментов.<br>
-      Наведите курсор на название — увидите подсказку.</b>
-    </div>
-  </div>
-  <div class="sidebar-right">
+  <div class="sidebar">
     <div class="bar">~ $ altern-ai-tools :: hub</div>
-    <div class="category" onclick="showModal('develop', this)">💻 Разработка и код</div>
-    <div class="category" onclick="showModal('text', this)">✍️ Текст и чат</div>
-    <div class="category" onclick="showModal('image', this)">🎨 Изображения</div>
+    <div class="category" onclick="showModal('develop', this)">💻 Код</div>
+    <div class="category" onclick="showModal('text', this)">✍️ Текст</div>
+    <div class="category" onclick="showModal('image', this)">🎨 Графика</div>
     <div class="category" onclick="showModal('video', this)">🎬 Видео</div>
-    <div class="category" onclick="showModal('infra', this)">🔧 Инфраструктура</div>
-    <div class="category" onclick="showModal('productivity', this)">🚀 Продуктивность</div>
+    <div class="category" onclick="showModal('infra', this)">🔧 Инфра</div>
+    <div class="category" onclick="showModal('productivity', this)">🚀 Прод</div>
     <div class="category" onclick="showModal('misc', this)">🛠️ Разное</div>
+  </div>
+  <div class="main-info">
+    <div style="font-size:0.92em;margin-bottom:6px;">user@alt-ai:~$ help</div>
+    <div class="main-info-desc">
+      <b>Выберите категорию слева — появится окно популярных AI-инструментов.<br>
+      Наведите курсор на название инструмента — увидите подсказку.</b>
+    </div>
   </div>
 </div>
 <div id="modal" class="modal" onclick="if(event.target===this) closeModal()">
@@ -144,60 +150,25 @@ const TOOLS = {
   develop: [
     { name: "GitHub Copilot", url: "https://github.com/features/copilot", desc: "Автодополнение, генерация кода" },
     { name: "Tabnine", url: "https://tabnine.com/", desc: "AI‑разработка, автокомплит" },
-    { name: "Cursor IDE", url: "https://cursor.sh/", desc: "AI‑IDE, GPT‑4o, код" },
-    { name: "AskCodi", url: "https://askcodi.com/", desc: "AI‑кодировщик, генерация" },
-    { name: "Replit AI", url: "https://replit.com/ai", desc: "Онлайн‑IDE + AI автодополнение" },
-    { name: "Hugging Face", url: "https://huggingface.co/", desc: "Более 300 000 моделей ML" },
-    { name: "PyTorch", url: "https://pytorch.org/", desc: "Фреймворк глубокого обучения" },
-    { name: "TensorFlow", url: "https://tensorflow.org/", desc: "Фреймворк нейросетей от Google" }
+    { name: "Cursor IDE", url: "https://cursor.sh/", desc: "AI‑IDE, GPT‑4o, код" }
   ],
   text: [
-    { name: "ChatGPT", url: "https://chatgpt.com/", desc: "Диалоги, генерация, анализ" },
-    { name: "Claude", url: "https://claude.ai/", desc: "Бот от Anthropic" },
-    { name: "Gemini", url: "https://gemini.google.com/", desc: "Мультимодальный ассистент Google" },
-    { name: "QuillBot", url: "https://quillbot.com/", desc: "Парафраз, улучшение текста" },
-    { name: "Wordtune", url: "https://wordtune.com/", desc: "AI‑редактор и генератор" },
-    { name: "DeepL", url: "https://deepl.com/", desc: "Переводы и документация AI" }
+    { name: "ChatGPT", url: "https://chatgpt.com/", desc: "Генерация и диалоги" }
   ],
   image: [
-    { name: "Canva", url: "https://canva.com/", desc: "Дизайн, генерация, Magic Studio" },
-    { name: "Midjourney", url: "https://midjourney.com/", desc: "AI‑арт, генерация картинок" },
-    { name: "Leonardo.AI", url: "https://leonardo.ai/", desc: "Генерация и стилизация" },
-    { name: "DALL·E 3", url: "https://openai.com/dall-e-3", desc: "Генерация по описанию" },
-    { name: "Stable Diffusion", url: "https://stability.ai/", desc: "Генеративная графика" },
-    { name: "Remove.bg", url: "https://remove.bg/", desc: "Мгновенное удаление фонов" },
-    { name: "Microsoft Designer", url: "https://designer.microsoft.com/", desc: "AI‑дизайн от Microsoft" }
+    { name: "Canva", url: "https://canva.com/", desc: "AI‑дизайн, генерация" }
   ],
   video: [
-    { name: "Runway", url: "https://runwayml.com/", desc: "Генерация и монтаж, Sora‑like" },
-    { name: "Synthesia", url: "https://synthesia.io/", desc: "Видео‑аватары и генерация" },
-    { name: "CapCut", url: "https://capcut.com/", desc: "Монтаж с AI" },
-    { name: "Descript", url: "https://www.descript.com/", desc: "Монтаж аудио/видео по тексту" },
-    { name: "Pika", url: "https://pika.art/", desc: "Видео‑монтаж AI" },
-    { name: "OpusClip", url: "https://opus.pro/", desc: "Клипы из больших видео" }
+    { name: "Runway", url: "https://runwayml.com/", desc: "Генерация и монтаж видео" }
   ],
   infra: [
-    { name: "LangChain", url: "https://langchain.com/", desc: "Связка моделей, RAG" },
-    { name: "LlamaIndex", url: "https://llamaindex.ai/", desc: "AI‑документы RAG" },
-    { name: "n8n", url: "https://n8n.io/", desc: "Автоматизация/интеграция AI" },
-    { name: "Zapier", url: "https://zapier.com/", desc: "Автоматизация задач с AI" },
-    { name: "Replicate", url: "https://replicate.com/", desc: "Облачные AI‑модели" },
-    { name: "OpenRouter", url: "https://openrouter.ai/", desc: "Маршрутизация AI моделей" }
+    { name: "LangChain", url: "https://langchain.com/", desc: "Связка моделей, RAG" }
   ],
   productivity: [
-    { name: "Notion AI", url: "https://notion.so/", desc: "Умные заметки, базы знаний" },
-    { name: "Slack AI", url: "https://slack.com/", desc: "AI‑боты в рабочих чатах" },
-    { name: "Gamma", url: "https://gamma.app/", desc: "AI‑презентации" },
-    { name: "Shortwave", url: "https://shortwave.com/", desc: "AI‑почта, smart‑инбокс" },
-    { name: "Clockwise", url: "https://getclockwise.com/", desc: "AI‑календарь" },
-    { name: "Guru", url: "https://getguru.com/", desc: "Знания/записи, AI поиск" }
+    { name: "Notion AI", url: "https://notion.so/", desc: "AI‑заметки, базы знаний" }
   ],
   misc: [
-    { name: "Character.ai", url: "https://character.ai/", desc: "Интерактивные AI‑боты" },
-    { name: "Grok", url: "https://x.ai/", desc: "Личный ассистент для X" },
-    { name: "Poe", url: "https://poe.com/", desc: "Доступ сразу к модели GPT/Claude/Gemini" },
-    { name: "Google AI Studio", url: "https://ai.google.dev/", desc: "Проектирование AI‑потоков" },
-    { name: "Gemma", url: "https://gemma.dev/", desc: "Open Source LLM Google" }
+    { name: "Character.ai", url: "https://character.ai/", desc: "Интерактивные AI‑боты" }
   ]
 };
 function showModal(cat, btn) {
