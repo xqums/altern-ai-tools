@@ -11,12 +11,27 @@
     font-display: swap;
   }
   body {
-    background: #202a36;
-    color: #fff8d4;
-    font-family: 'Fixedsys', 'Courier New', monospace;
-    margin: 0;
-    font-size: 14.3px; /* увеличено на 10% */
-  }
+  background: #000;
+  color: #fff8d4;
+  font-family: 'Fixedsys', 'Courier New', monospace;
+  margin: 0;
+  font-size: 14.3px; /* если был другой размер — замени */
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url('https://cdn.discordapp.com/attachments/870419909480427590/1425590558621171802/generated-image.png?ex=68e8242b&is=68e6d2ab&hm=89436cd7dfe194381f291f4f68faedfa1850b98d957b33c1f7589002565a0a04') center center / cover no-repeat;
+  opacity: 0.15;
+}
+.terminal, .modal, .modal-content {
+  position: relative;
+  z-index: 1;
+}
+
   .terminal {
     background: #16202b;
     margin: 28px auto;
