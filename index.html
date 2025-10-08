@@ -2,198 +2,201 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
+  <title>altern-ai-tools :: terminal hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>~ $ altern-ai-tools :: terminal hub</title>
-  <meta name="description" content="Альтернативные AI-инструменты по категориям в терминальном стиле. Модальные окна, подсказки, Fixedsys, тёмная палитра." />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/css/winbox.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/winbox.bundle.min.js"></script>
   <style>
-    :root{
-      --bg:#000; --panel:#232323; --panel-2:#1a1a1a; --text:#fff;
-      --muted:#c9c9c9; --blue:#23a8ff; --yellow:#ffd65a; --border:#3d3d3d;
-      --green:#27c93f; --red:#ff5f56; --orange:#ff9f0a; --link:#07a0ff;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);
-      font:15px/1.55 Fixedsys, ui-monospace, Menlo, Consolas, monospace}
-    a{color:var(--link);text-decoration:none}
-    a:hover{text-decoration:underline}
-
-    /* Terminal top bar */
-    .term-bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;
-      gap:12px;height:54px;padding:0 16px;background:var(--panel);
-      border-bottom:1px solid var(--border)}
-    .dots{display:flex;gap:8px}
-    .dot{width:12px;height:12px;border-radius:50%}
-    .dot.red{background:var(--red)}
-    .dot.yellow{background:var(--orange)}
-    .dot.green{background:var(--green)}
-    .prompt{color:var(--yellow)}
-    .title{color:var(--blue);font-weight:700;letter-spacing:.25px}
-
-    .shell{max-width:1200px;margin:28px auto;padding:0 16px}
-    .line{display:flex;gap:10px;align-items:baseline}
-    .ps1{color:var(--yellow)}
-    .cursor{display:inline-block;width:8px;height:16px;background:var(--yellow);
-      margin-left:6px;animation:blink 1s steps(1) infinite}
-    @keyframes blink{50%{opacity:.15}}
-
-    /* Category grid */
-    .cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:12px;margin-top:16px}
-    .cmd{background:var(--panel);border:1px solid var(--border);color:var(--text);
-      padding:12px 14px;border-radius:10px;cursor:pointer; text-align:left;
-      transition:transform .12s ease, background .2s ease, border-color .2s ease,
-      box-shadow .2s ease; position:relative}
-    .cmd:hover{transform:translateY(-1px);background:var(--panel-2);
-      border-color:#5a5a5a; box-shadow:0 2px 8px rgba(0,0,0,.35)}
-    .cmd b{color:var(--blue)}
-    .cmd .sub{display:block;color:var(--muted);font-size:12px;margin-top:6px}
-
-    /* Tooltip */
-    .tip{position:absolute;inset:auto 12px -8px auto;transform:translateY(100%);
-      background:#101010;border:1px solid var(--border);color:var(--muted);
-      font-size:12px;padding:6px 8px;border-radius:6px;white-space:nowrap;
-      opacity:0;pointer-events:none;transition:opacity .12s ease}
-    .cmd:hover .tip{opacity:1}
-
-    /* WinBox theming */
-    .wb-body{background:var(--panel)!important;color:var(--text)!important;
-      font-family:Fixedsys, ui-monospace, Menlo, Consolas, monospace!important}
-    .wb-title{font-family:inherit!important}
-    .wb-body ul{padding-left:18px}
-    .wb-body li{margin:6px 0}
-    .wb-body a{color:var(--link)}
-
-    /* Footer note */
-    .note{color:var(--muted);opacity:.85;font-size:12px;margin-top:18px}
-    .kbd{padding:1px 5px;border:1px solid var(--border);border-bottom-width:2px;
-      border-radius:4px;background:#111; font-size:11px}
+  @font-face {
+    font-family: 'Fixedsys';
+    src: url('https://fonts.cdnfonts.com/s/39828/Fixedsys.woff') format('woff');
+    font-display: swap;
+  }
+  body {
+    background: #202a36;
+    color: #fff8d4;
+    font-family: 'Fixedsys', 'Courier New', monospace;
+    margin: 0;
+  }
+  .terminal {
+    background: #16202b;
+    margin: 40px auto;
+    max-width: 840px;
+    border-radius: 18px;
+    box-shadow: 0 0 36px #000c;
+    padding: 36px 36px;
+    border: 2px solid #263447;
+  }
+  .bar {
+    font-weight: bold;
+    margin-bottom: 22px;
+    color: #21a0fa;
+    font-size: 1.6em;
+    letter-spacing: .5px;
+    font-family: 'Fixedsys', monospace;
+  }
+  .category {
+    font-size: 1.13em;
+    display: inline-block;
+    margin: 12px 22px 12px 0;
+    cursor: pointer;
+    background: #202b37;
+    padding: 7px 20px;
+    border-radius: 8px;
+    color: #e4bf18;
+    border: 1px solid #21a0fa50;
+    transition: background .16s;
+    font-family: 'Fixedsys', monospace;
+  }
+  .category:hover {
+    background: #151b23;
+    color: #fff;
+  }
+  .cmd-list {
+    margin-top: 16px;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    left: 0; top: 0; right:0; bottom:0;
+    background: rgba(32,42,59,.93);
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  .modal.open {
+    display: flex;
+  }
+  .modal-content {
+    background: #182230;
+    color: #ffe889;
+    min-width: 410px;
+    padding: 26px 34px;
+    border-radius: 14px;
+    box-shadow: 0 0 48px #000b;
+    border: 2px solid #21a0fa;
+    font-size: 1.04em;
+    max-width: 85vw;
+    font-family: 'Fixedsys', monospace;
+  }
+  .button-close {
+    float: right;
+    background: #21a0fa;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    margin-top: -6px;
+    margin-right: -10px;
+    padding: 0px 16px;
+    cursor: pointer;
+    font-family: 'Fixedsys', monospace;
+  }
+  a.tool-link {
+    color: #ffe889;
+    text-decoration: underline;
+  }
+  ul { margin-top:8px; padding-left:18px }
   </style>
 </head>
 <body>
-  <div class="term-bar" role="banner" aria-label="terminal bar">
-    <div class="dots" aria-hidden="true">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-    </div>
-    <div class="prompt">~ $</div>
-    <div class="title">altern-ai-tools :: hub</div>
+<div class="terminal">
+  <div class="bar">~ $ altern-ai-tools :: terminal hub</div>
+  <div>user@alt-ai:~$ help</div>
+  <div class="cmd-list">
+    <span class="category" onclick="showModal('develop')">💻 /develop</span>
+    <span class="category" onclick="showModal('text')">✍️ /text</span>
+    <span class="category" onclick="showModal('image')">🎨 /image</span>
+    <span class="category" onclick="showModal('video')">🎬 /video</span>
+    <span class="category" onclick="showModal('infra')">🔧 /infra</span>
+    <span class="category" onclick="showModal('productivity')">🚀 /productivity</span>
+    <span class="category" onclick="showModal('misc')">🛠️ /misc</span>
   </div>
+  <div style="margin-top:20px;color:#b9caa0;font-size:1em">
+    Нажмите на команду, чтобы открыть список популярных AI-инструментов по категории.<br>
+    <b>Подсказка:</b> наведите курсор на название — появится краткое описание!
+  </div>
+</div>
+<div id="modal" class="modal" onclick="if(event.target===this) closeModal()">
+  <div id="modal-content" class="modal-content">
+    <button class="button-close" onclick="closeModal()">✕</button>
+    <div id="tools-block"></div>
+  </div>
+</div>
+<script>
+const TOOLS = {
+  develop: [
+    { name: "GitHub Copilot", url: "https://github.com/features/copilot", desc: "Автодополнение, генерация кода" },
+    { name: "Tabnine", url: "https://tabnine.com/", desc: "AI‑разработка, автокомплит" },
+    { name: "Cursor IDE", url: "https://cursor.sh/", desc: "AI‑IDE, GPT‑4o, код" },
+    { name: "AskCodi", url: "https://askcodi.com/", desc: "AI‑кодировщик, генерация" },
+    { name: "Replit AI", url: "https://replit.com/ai", desc: "Онлайн‑IDE + AI автодополнение" },
+    { name: "Hugging Face", url: "https://huggingface.co/", desc: "Более 300 000 моделей ML" },
+    { name: "PyTorch", url: "https://pytorch.org/", desc: "Фреймворк глубокого обучения" },
+    { name: "TensorFlow", url: "https://tensorflow.org/", desc: "Фреймворк нейросетей от Google" }
+  ],
+  text: [
+    { name: "ChatGPT", url: "https://chatgpt.com/", desc: "Диалоги, генерация, анализ" },
+    { name: "Claude", url: "https://claude.ai/", desc: "Бот от Anthropic" },
+    { name: "Gemini", url: "https://gemini.google.com/", desc: "Мультимодальный ассистент Google" },
+    { name: "QuillBot", url: "https://quillbot.com/", desc: "Парафраз, улучшение текста" },
+    { name: "Wordtune", url: "https://wordtune.com/", desc: "AI‑редактор и генератор" },
+    { name: "DeepL", url: "https://deepl.com/", desc: "Переводы и документация AI" }
+  ],
+  image: [
+    { name: "Canva", url: "https://canva.com/", desc: "Дизайн, генерация, Magic Studio" },
+    { name: "Midjourney", url: "https://midjourney.com/", desc: "AI‑арт, генерация картинок" },
+    { name: "Leonardo.AI", url: "https://leonardo.ai/", desc: "Генерация и стилизация" },
+    { name: "DALL·E 3", url: "https://openai.com/dall-e-3", desc: "Генерация по описанию" },
+    { name: "Stable Diffusion", url: "https://stability.ai/", desc: "Генеративная графика" },
+    { name: "Remove.bg", url: "https://remove.bg/", desc: "Мгновенное удаление фонов" },
+    { name: "Microsoft Designer", url: "https://designer.microsoft.com/", desc: "AI‑дизайн от Microsoft" }
+  ],
+  video: [
+    { name: "Runway", url: "https://runwayml.com/", desc: "Генерация и монтаж, Sora‑like" },
+    { name: "Synthesia", url: "https://synthesia.io/", desc: "Видео‑аватары и генерация" },
+    { name: "CapCut", url: "https://capcut.com/", desc: "Монтаж с AI" },
+    { name: "Descript", url: "https://www.descript.com/", desc: "Монтаж аудио/видео по тексту" },
+    { name: "Pika", url: "https://pika.art/", desc: "Видео‑монтаж AI" },
+    { name: "OpusClip", url: "https://opus.pro/", desc: "Клипы из больших видео" }
+  ],
+  infra: [
+    { name: "LangChain", url: "https://langchain.com/", desc: "Связка моделей, RAG" },
+    { name: "LlamaIndex", url: "https://llamaindex.ai/", desc: "AI‑документы RAG" },
+    { name: "n8n", url: "https://n8n.io/", desc: "Автоматизация/интеграция AI" },
+    { name: "Zapier", url: "https://zapier.com/", desc: "Автоматизация задач с AI" },
+    { name: "Replicate", url: "https://replicate.com/", desc: "Облачные AI‑модели" },
+    { name: "OpenRouter", url: "https://openrouter.ai/", desc: "Маршрутизация AI моделей" }
+  ],
+  productivity: [
+    { name: "Notion AI", url: "https://notion.so/", desc: "Умные заметки, базы знаний" },
+    { name: "Slack AI", url: "https://slack.com/", desc: "AI‑боты в рабочих чатах" },
+    { name: "Gamma", url: "https://gamma.app/", desc: "AI‑презентации" },
+    { name: "Shortwave", url: "https://shortwave.com/", desc: "AI‑почта, smart‑инбокс" },
+    { name: "Clockwise", url: "https://getclockwise.com/", desc: "AI‑календарь" },
+    { name: "Guru", url: "https://getguru.com/", desc: "Знания/записи, AI поиск" }
+  ],
+  misc: [
+    { name: "Character.ai", url: "https://character.ai/", desc: "Интерактивные AI‑боты" },
+    { name: "Grok", url: "https://x.ai/", desc: "Личный ассистент для X" },
+    { name: "Poe", url: "https://poe.com/", desc: "Доступ сразу к модели GPT/Claude/Gemini" },
+    { name: "Google AI Studio", url: "https://ai.google.dev/", desc: "Проектирование AI‑потоков" },
+    { name: "Gemma", url: "https://gemma.dev/", desc: "Open Source LLM Google" }
+  ]
+};
 
-  <main class="shell">
-    <div class="line"><span class="ps1">user@alt-ai</span>: <span class="prompt">~ $</span> help<span class="cursor" aria-hidden="true"></span></div>
-    <div class="note">Доступные команды-категории. Нажмите, чтобы открыть окно со списком инструментов.</div>
-
-    <section class="cmds" aria-label="AI categories">
-      <button class="cmd" data-win="dev" title="Среда разработки, код-ассистенты, IDE-плагины">
-        <b>ai</b> list dev <span class="sub">Разработка и код</span>
-        <span class="tip">Код-ассистенты, IDE и платформы</span>
-      </button>
-      <button class="cmd" data-win="text" title="Чат-ассистенты и генерация текста">
-        <b>ai</b> list text <span class="sub">Текст и чат</span>
-        <span class="tip">Модели чата, письма, копирайтинг</span>
-      </button>
-      <button class="cmd" data-win="image" title="Генерация и правка изображений">
-        <b>ai</b> list image <span class="sub">Изображения</span>
-        <span class="tip">Диффузия, редактирование, логотипы</span>
-      </button>
-      <button class="cmd" data-win="audio" title="Синтез и распознавание речи, аудиоредакторы">
-        <b>ai</b> list audio <span class="sub">Аудио/Речь</span>
-        <span class="tip">TTS, STT, саунд-дизайн</span>
-      </button>
-      <button class="cmd" data-win="video" title="Генерация и монтаж видео, субтитры">
-        <b>ai</b> list video <span class="sub">Видео</span>
-        <span class="tip">Монтаж, генерация клипов</span>
-      </button>
-      <button class="cmd" data-win="research" title="Исследование, поиск, LLM платформы, датасеты">
-        <b>ai</b> list research <span class="sub">Исследования / LLM / данные</span>
-        <span class="tip">Статьи, код, платформы</span>
-      </button>
-      <button class="cmd" data-win="productivity" title="Автоматизации, офис, заметки, интеграции">
-        <b>ai</b> list productivity <span class="sub">Продуктивность</span>
-        <span class="tip">Офис, таск-менеджмент</span>
-      </button>
-      <button class="cmd" data-win="infra" title="Фреймворки, API, inference, хостинг моделей">
-        <b>ai</b> list infra <span class="sub">Инфраструктура / интеграции</span>
-        <span class="tip">RAG, агенты, провайдеры</span>
-      </button>
-      <button class="cmd" data-win="design" title="UI/UX дизайн, прототипирование, макеты">
-        <b>ai</b> list design <span class="sub">Дизайн / UI</span>
-        <span class="tip">Прототипы, автолэйаут</span>
-      </button>
-      <button class="cmd" data-win="misc" title="Сборник прочих полезных AI-сервисов">
-        <b>ai</b> list misc <span class="sub">Разное</span>
-        <span class="tip">Инструменты вне категорий</span>
-      </button>
-    </section>
-
-    <div class="note">Подсказка: наведите курсор, чтобы увидеть описания, нажмите — откроется окно. Перетаскивайте окна, закрепляйте, комбинируйте.</div>
-  </main>
-
-  <!-- Hidden content for windows -->
-  <section id="dev" class="win-content" hidden>
-    <ul>
-      <li><a href="https://github.com/features/copilot" title="Автодополнение и чат в IDE" target="_blank" rel="noopener">GitHub Copilot</a></li>
-      <li><a href="https://cursor.sh/" title="IDE с нейро-ассистентом" target="_blank" rel="noopener">Cursor</a></li>
-      <li><a href="https://codeium.com/" title="Бесплатный автокомплит и чат" target="_blank" rel="noopener">Codeium</a></li>
-      <li><a href="https://tabnine.com/" title="Автодополнение кода на локали" target="_blank" rel="noopener">Tabnine</a></li>
-      <li><a href="https://huggingface.co/" title="Модели, датасеты, Spaces" target="_blank" rel="noopener">Hugging Face</a></li>
-      <li><a href="https://replit.com/ai" title="Онлайн-IDE с ИИ" target="_blank" rel="noopener">Replit AI</a></li>
-      <li><a href="https://stackblitz.com/" title="Браузерная среда разработки" target="_blank" rel="noopener">StackBlitz</a></li>
-      <li><a href="https://www.jetbrains.com/ai/" title="JetBrains AI Assistant" target="_blank" rel="noopener">JetBrains AI</a></li>
-    </ul>
-  </section>
-
-  <section id="text" class="win-content" hidden>
-    <ul>
-      <li><a href="https://chatgpt.com/" title="ChatGPT, режимы и плагины" target="_blank" rel="noopener">ChatGPT</a></li>
-      <li><a href="https://claude.ai/" title="Anthropic Claude" target="_blank" rel="noopener">Claude</a></li>
-      <li><a href="https://gemini.google.com/" title="Google Gemini" target="_blank" rel="noopener">Gemini</a></li>
-      <li><a href="https://perplexity.ai/" title="Ответы с цитатами, веб-поиск" target="_blank" rel="noopener">Perplexity</a></li>
-      <li><a href="https://www.jasper.ai/" title="Маркетинговые тексты" target="_blank" rel="noopener">Jasper</a></li>
-      <li><a href="https://writesonic.com/" title="Генерация копирайта" target="_blank" rel="noopener">Writesonic</a></li>
-      <li><a href="https://novelai.net/" title="Генерация историй и арта" target="_blank" rel="noopener">NovelAI</a></li>
-      <li><a href="https://notion.so/product/ai" title="Помощник в заметках" target="_blank" rel="noopener">Notion AI</a></li>
-    </ul>
-  </section>
-
-  <section id="image" class="win-content" hidden>
-    <ul>
-      <li><a href="https://www.midjourney.com/" title="Генерация изображений в Discord" target="_blank" rel="noopener">Midjourney</a></li>
-      <li><a href="https://openai.com/dall-e-3" title="DALL·E 3 от OpenAI" target="_blank" rel="noopener">DALL·E</a></li>
-      <li><a href="https://stability.ai/" title="Stable Diffusion / SDXL" target="_blank" rel="noopener">Stable Diffusion</a></li>
-      <li><a href="https://ideogram.ai/" title="Текст-на-изображении" target="_blank" rel="noopener">Ideogram</a></li>
-      <li><a href="https://www.canva.com/" title="Дизайн с ИИ" target="_blank" rel="noopener">Canva</a></li>
-      <li><a href="https://clipdrop.co/" title="Улучшение фото и вырезание" target="_blank" rel="noopener">Clipdrop</a></li>
-      <li><a href="https://magnific.ai/" title="Супер-апскейл и детали" target="_blank" rel="noopener">Magnific</a></li>
-    </ul>
-  </section>
-
-  <section id="audio" class="win-content" hidden>
-    <ul>
-      <li><a href="https://elevenlabs.io/" title="Синтез речи, клоны голосов" target="_blank" rel="noopener">ElevenLabs</a></li>
-      <li><a href="https://www.openai.com/research/whisper" title="Распознавание речи" target="_blank" rel="noopener">Whisper</a></li>
-      <li><a href="https://www.descript.com/" title="Монтаж подкастов и видео" target="_blank" rel="noopener">Descript</a></li>
-      <li><a href="https://voicemod.net/" title="Изменение голоса" target="_blank" rel="noopener">Voicemod</a></li>
-      <li><a href="https://podcast.adobe.com/" title="Звук-улучшайзер" target="_blank" rel="noopener">Adobe Podcast</a></li>
-    </ul>
-  </section>
-
-  <section id="video" class="win-content" hidden>
-    <ul>
-      <li><a href="https://runwayml.com/" title="Генерация/редактирование видео" target="_blank" rel="noopener">Runway</a></li>
-      <li><a href="https://pika.art/" title="Генерация коротких клипов" target="_blank" rel="noopener">Pika</a></li>
-      <li><a href="https://kapwing.com/" title="Видеоредактор онлайн" target="_blank" rel="noopener">Kapwing</a></li>
-      <li><a href="https://www.veed.io/" title="Онлайн-монтаж" target="_blank" rel="noopener">VEED</a></li>
-      <li><a href="https://www.descript.com/" title="Текстовый монтаж" target="_blank" rel="noopener">Descript</a></li>
-    </ul>
-  </section>
-
-  <section id="research" class="win-content" hidden>
-    <ul>
-      <li><a href="https://arxiv.org/" title="Научные препринты" target="_blank" rel="noopener">arXiv</a></li>
-      <li><a href="https://paperswithcode.com/" title="Статьи с кодом" target="_blank" rel="noopener">Papers with Code</a
+function showModal(cat) {
+  const tools = TOOLS[cat];
+  if (!tools) return;
+  let html = `<b>Инструменты категории:</b><br><ul>`;
+  tools.forEach(t => {
+    html += `<li><a class="tool-link" href="${t.url}" target="_blank" title="${t.desc}">${t.name}</a> — ${t.desc}</li>`;
+  });
+  html += '</ul>';
+  document.getElementById('tools-block').innerHTML = html;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+</script>
+</body>
+</html>
