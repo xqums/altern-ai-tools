@@ -24,34 +24,56 @@
     box-shadow: 0 0 36px #000c;
     padding: 36px 36px;
     border: 2px solid #263447;
+    display: flex;
+    min-height: 450px;
+  }
+  .sidebar {
+    min-width: 180px;
+    margin-right: 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .bar {
     font-weight: bold;
     margin-bottom: 22px;
     color: #21a0fa;
-    font-size: 1.6em;
+    font-size: 1.19em;
     letter-spacing: .5px;
     font-family: 'Fixedsys', monospace;
   }
   .category {
     font-size: 1.13em;
-    display: inline-block;
-    margin: 12px 22px 12px 0;
+    width: 92%;
+    text-align: left;
     cursor: pointer;
     background: #202b37;
-    padding: 7px 20px;
-    border-radius: 8px;
+    padding: 13px 17px 13px 18px;
+    border-radius: 7px;
     color: #e4bf18;
     border: 1px solid #21a0fa50;
-    transition: background .16s;
+    transition: background .16s, color .16s;
     font-family: 'Fixedsys', monospace;
+    margin-bottom: 11px;
   }
-  .category:hover {
+  .category:hover, .category.active {
     background: #151b23;
     color: #fff;
   }
-  .cmd-list {
-    margin-top: 16px;
+  .main-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .main-info .prompt {
+    font-size: 1.02em;
+    margin-bottom: 18px;
+  }
+  .main-info .desc {
+    margin-bottom: 23px;
+    color: #b9caa0;
+    font-size: 1em;
   }
   .modal {
     display: none;
@@ -99,20 +121,22 @@
 </head>
 <body>
 <div class="terminal">
-  <div class="bar">~ $ altern-ai-tools :: terminal hub</div>
-  <div>user@alt-ai:~$ help</div>
-  <div class="cmd-list">
-    <span class="category" onclick="showModal('develop')">💻 /develop</span>
-    <span class="category" onclick="showModal('text')">✍️ /text</span>
-    <span class="category" onclick="showModal('image')">🎨 /image</span>
-    <span class="category" onclick="showModal('video')">🎬 /video</span>
-    <span class="category" onclick="showModal('infra')">🔧 /infra</span>
-    <span class="category" onclick="showModal('productivity')">🚀 /productivity</span>
-    <span class="category" onclick="showModal('misc')">🛠️ /misc</span>
+  <div class="sidebar">
+    <div class="bar">~ $ altern-ai-tools :: hub</div>
+    <div class="category" onclick="showModal('develop', this)">💻 Разработка и код</div>
+    <div class="category" onclick="showModal('text', this)">✍️ Текст и чат</div>
+    <div class="category" onclick="showModal('image', this)">🎨 Изображения</div>
+    <div class="category" onclick="showModal('video', this)">🎬 Видео</div>
+    <div class="category" onclick="showModal('infra', this)">🔧 Инфраструктура</div>
+    <div class="category" onclick="showModal('productivity', this)">🚀 Продуктивность</div>
+    <div class="category" onclick="showModal('misc', this)">🛠️ Разное</div>
   </div>
-  <div style="margin-top:20px;color:#b9caa0;font-size:1em">
-    Нажмите на команду, чтобы открыть список популярных AI-инструментов по категории.<br>
-    <b>Подсказка:</b> наведите курсор на название — появится краткое описание!
+  <div class="main-info">
+    <div class="prompt">user@alt-ai:~$ help</div>
+    <div class="desc">
+      <b>Выберите категорию слева — появится окно популярных AI-инструментов.<br>
+      Наведите курсор на название — увидите подсказку.</b>
+    </div>
   </div>
 </div>
 <div id="modal" class="modal" onclick="if(event.target===this) closeModal()">
@@ -183,7 +207,7 @@ const TOOLS = {
   ]
 };
 
-function showModal(cat) {
+function showModal(cat, btn) {
   const tools = TOOLS[cat];
   if (!tools) return;
   let html = `<b>Инструменты категории:</b><br><ul>`;
@@ -193,9 +217,12 @@ function showModal(cat) {
   html += '</ul>';
   document.getElementById('tools-block').innerHTML = html;
   document.getElementById('modal').classList.add('open');
+  document.querySelectorAll('.category').forEach(c=>c.classList.remove('active'));
+  if(btn) btn.classList.add('active');
 }
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
+  document.querySelectorAll('.category').forEach(c=>c.classList.remove('active'));
 }
 </script>
 </body>
