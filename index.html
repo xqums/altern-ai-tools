@@ -6,51 +6,36 @@
   <title>AI Tools Hub</title>
   <meta name="description" content="Коллекция популярных ИИ-инструментов для разработки, творчества и работы" />
   <style>
-    :root {
-      --bg: #000;
-      --card: #121735;
-      --muted: #8ea0ff;
-      --text: #e8ecff;
-      --accent: #7aa2ff;
-      --ring: #3b82f6;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font-family: system-ui, Inter, Arial, sans-serif; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    header { position: sticky; top: 0; background: rgba(0,0,0,.9); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(126,148,255,.16); z-index: 100; }
-    .container { max-width: 100%; margin: 0; padding: 20px; }
-    .header-content { display: flex; align-items: center; justify-content: flex-start; gap: 30px; }
-    .logo { display: flex; align-items: center; gap: 8px; font-size: 24px; font-weight: 700; }
-    .icon { width: 32px; height: 32px; background: linear-gradient(135deg, #6ea1ff, #4b82ff); border-radius: 8px; box-shadow: 0 0 0 2px rgba(122,162,255,.25), 0 6px 18px rgba(75, 130, 255, .3); }
-
-    /* Floating compact menu */
-    .menu { position: fixed; left: 24px; top: 96px; display: flex; flex-direction: column; gap: 10px; z-index: 50; }
-    .menu button { background: #0b1028; color: var(--text); border: 1px solid rgba(126,148,255,.18); padding: 10px 14px; border-radius: 10px; cursor: pointer; transition: transform .15s ease, background .2s ease, border-color .2s; text-align: left; }
-    .menu button:hover { background: #0f1638; border-color: rgba(122,162,255,.35); transform: translateY(-1px); }
-
-    /* Drawer */
-    .drawer { position: fixed; left: 24px; top: 150px; width: 360px; max-height: calc(100% - 180px); overflow: auto; padding: 14px; background: #0b1028; border: 1px solid rgba(126,148,255,.18); border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.45), 0 0 0 1px rgba(122,162,255,.1) inset; transform-origin: top left; opacity: 0; transform: translateY(-8px) scale(.98); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
-    .drawer.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-
-    .drawer .section-title { font-weight: 700; letter-spacing: .2px; color: var(--muted); margin: 6px 6px 8px; }
-    .category { background: #0e1534; border: 1px solid rgba(126,148,255,.18); border-radius: 12px; padding: 10px; margin-bottom: 10px; }
-    .category-title { font-size: 14px; font-weight: 700; color: #b7c4ff; margin: 4px 6px 10px; }
-    .tool-item { display: block; padding: 8px 10px; border-radius: 8px; color: var(--text); transition: background .15s ease; }
-    .tool-item:hover { background: rgba(122,162,255,.08); }
-    .tool-name { font-weight: 600; }
-    .tool-desc { font-size: 12px; color: #b9c2ff; opacity: .9; }
-
-    main { padding: 32px 20px 80px 420px; }
-    .welcome-message { max-width: 780px; }
+    :root { --bg:#000; --card:#121735; --muted:#8ea0ff; --text:#e8ecff; --accent:#7aa2ff; --ring:#3b82f6; }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,Inter,Arial,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{position:sticky;top:0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgba(126,148,255,.16);z-index:100}
+    .container{max-width:100%;margin:0;padding:20px}
+    .header-content{display:flex;align-items:center;justify-content:flex-start;gap:30px}
+    .logo{display:flex;align-items:center;gap:8px;font-size:24px;font-weight:700}
+    .icon{width:32px;height:32px;background:linear-gradient(135deg,#6ea1ff,#4b82ff);border-radius:8px;box-shadow:0 0 0 2px rgba(122,162,255,.25),0 6px 18px rgba(75,130,255,.3)}
+    .menu{position:fixed;left:24px;top:96px;display:flex;flex-direction:column;gap:10px;z-index:50}
+    .menu button{background:#0b1028;color:var(--text);border:1px solid rgba(126,148,255,.18);padding:10px 14px;border-radius:10px;cursor:pointer;transition:transform .15s ease,background .2s ease,border-color .2s;text-align:left}
+    .menu button:hover{background:#0f1638;border-color:rgba(122,162,255,.35);transform:translateY(-1px)}
+    .drawer{position:fixed;left:24px;top:150px;width:360px;max-height:calc(100% - 180px);overflow:auto;padding:14px;background:#0b1028;border:1px solid rgba(126,148,255,.18);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 1px rgba(122,162,255,.1) inset;transform-origin:top left;opacity:0;transform:translateY(-8px) scale(.98);pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+    .drawer.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+    .drawer .section-title{font-weight:700;letter-spacing:.2px;color:var(--muted);margin:6px 6px 8px}
+    .category{background:#0e1534;border:1px solid rgba(126,148,255,.18);border-radius:12px;padding:10px;margin-bottom:10px}
+    .category-title{font-size:14px;font-weight:700;color:#b7c4ff;margin:4px 6px 10px}
+    .tool-item{display:block;padding:8px 10px;border-radius:8px;color:var(--text);transition:background .15s ease}
+    .tool-item:hover{background:rgba(122,162,255,.08)}
+    .tool-name{font-weight:600}
+    .tool-desc{font-size:12px;color:#b9c2ff;opacity:.9}
+    main{padding:32px 20px 80px 420px}
+    .welcome-message{max-width:780px}
   </style>
 </head>
 <body>
   <header>
     <div class="container header-content">
       <div class="logo"><div class="icon"></div><span>AI Tools Hub</span></div>
-      <nav aria-label="Меню"><!-- reserved --></nav>
     </div>
   </header>
 
@@ -61,177 +46,100 @@
   <aside id="drawer" class="drawer" role="dialog" aria-modal="false" aria-label="Категории AI-инструментов">
     <div class="section-title">Коллекция инструментов</div>
 
-    <!-- 1. Разработка и код -->
     <div class="category">
       <div class="category-title">💻 Разработка и код</div>
-      <a class="tool-item" href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">GitHub Copilot</div>
-        <div class="tool-desc">Автодополнение и подсказки кода</div>
-      </a>
-      <a class="tool-item" href="https://tabnine.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Tabnine</div>
-        <div class="tool-desc">ИИ-ассистент для IDE и автодополнения</div>
-      </a>
-      <a class="tool-item" href="https://cursor.sh/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Cursor</div>
-        <div class="tool-desc">IDE с интегрированным ИИ-помощником</div>
-      </a>
-      <a class="tool-item" href="https://codeium.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Codeium</div>
-        <div class="tool-desc">Бесплатный ИИ для автокомплита и чата</div>
-      </a>
-      <a class="tool-item" href="https://huggingface.co/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Hugging Face</div>
-        <div class="tool-desc">Модели, датасеты и Spaces</div>
-      </a>
+      <a class="tool-item" href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer"><div class="tool-name">GitHub Copilot</div><div class="tool-desc">Автодополнение и подсказки кода</div></a>
+      <a class="tool-item" href="https://tabnine.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Tabnine</div><div class="tool-desc">ИИ-ассистент для IDE и автодополнения</div></a>
+      <a class="tool-item" href="https://cursor.sh/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Cursor</div><div class="tool-desc">IDE с интегрированным ИИ-помощником</div></a>
+      <a class="tool-item" href="https://codeium.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Codeium</div><div class="tool-desc">Бесплатный ИИ для автокомплита и чата</div></a>
+      <a class="tool-item" href="https://huggingface.co/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Hugging Face</div><div class="tool-desc">Модели, датасеты и Spaces</div></a>
     </div>
 
-    <!-- 2. Текст и контент / Чат -->
     <div class="category">
       <div class="category-title">✍️ Текст и чат</div>
-      <a class="tool-item" href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">ChatGPT</div>
-        <div class="tool-desc">Генерация текста, ответы и ассистент</div>
-      </a>
-      <a class="tool-item" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Claude</div>
-        <div class="tool-desc">Продвинутый ИИ-чат от Anthropic</div>
-      </a>
-      <a class="tool-item" href="https://www.jasper.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Jasper</div>
-        <div class="tool-desc">Копирайтинг и контент-маркетинг с ИИ</div>
-      </a>
-      <a class="tool-item" href="https://copy.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Copy.ai</div>
-        <div class="tool-desc">Шаблоны текстов, письма, посты</div>
-      </a>
+      <a class="tool-item" href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">ChatGPT</div><div class="tool-desc">Генерация текста, ответы и ассистент</div></a>
+      <a class="tool-item" href="https://claude.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Claude</div><div class="tool-desc">Продвинутый ИИ-чат от Anthropic</div></a>
+      <a class="tool-item" href="https://www.jasper.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Jasper</div><div class="tool-desc">Копирайтинг и контент-маркетинг с ИИ</div></a>
+      <a class="tool-item" href="https://copy.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Copy.ai</div><div class="tool-desc">Шаблоны текстов, письма, посты</div></a>
     </div>
 
-    <!-- 3. Поиск и анализ -->
     <div class="category">
       <div class="category-title">🔍 Поиск и анализ</div>
-      <a class="tool-item" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Perplexity</div>
-        <div class="tool-desc">ИИ-поиск с ответами и источниками</div>
-      </a>
-      <a class="tool-item" href="https://you.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">You.com</div>
-        <div class="tool-desc">Поиск с ИИ-приложениями и чатами</div>
-      </a>
-      <a class="tool-item" href="https://metaphor.systems/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Metaphor</div>
-        <div class="tool-desc">Семантический поиск по вебу</div>
-      </a>
+      <a class="tool-item" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Perplexity</div><div class="tool-desc">ИИ-поиск с ответами и источниками</div></a>
+      <a class="tool-item" href="https://you.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">You.com</div><div class="tool-desc">Поиск с ИИ-приложениями и чатами</div></a>
+      <a class="tool-item" href="https://metaphor.systems/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Metaphor</div><div class="tool-desc">Семантический поиск по вебу</div></a>
     </div>
 
-    <!-- 4. Изображения и дизайн -->
     <div class="category">
       <div class="category-title">🎨 Изображения и дизайн</div>
-      <a class="tool-item" href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Midjourney</div>
-        <div class="tool-desc">Генерация изображений по тексту</div>
-      </a>
-      <a class="tool-item" href="https://openai.com/dall-e-3" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">DALL·E 3</div>
-        <div class="tool-desc">Создание изображений от OpenAI</div>
-      </a>
-      <a class="tool-item" href="https://www.canva.com/ai-image-generator/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Canva AI</div>
-        <div class="tool-desc">Инструменты дизайна с ИИ</div>
-      </a>
-      <a class="tool-item" href="https://stability.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Stable Diffusion</div>
-        <div class="tool-desc">Генеративная графика с открытой моделью</div>
-      </a>
-      <a class="tool-item" href="https://www.remove.bg/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">RemoveBG</div>
-        <div class="tool-desc">Удаление фона с фото</div>
-      </a>
+      <a class="tool-item" href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Midjourney</div><div class="tool-desc">Генерация изображений по тексту</div></a>
+      <a class="tool-item" href="https://openai.com/dall-e-3" target="_blank" rel="noopener noreferrer"><div class="tool-name">DALL·E 3</div><div class="tool-desc">Создание изображений от OpenAI</div></a>
+      <a class="tool-item" href="https://www.canva.com/ai-image-generator/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Canva AI</div><div class="tool-desc">Инструменты дизайна с ИИ</div></a>
+      <a class="tool-item" href="https://stability.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Stable Diffusion</div><div class="tool-desc">Генеративная графика с открытой моделью</div></a>
+      <a class="tool-item" href="https://www.remove.bg/" target="_blank" rel="noopener noreferrer"><div class="tool-name">RemoveBG</div><div class="tool-desc">Удаление фона с фото</div></a>
     </div>
 
-    <!-- 5. Видео и голос -->
     <div class="category">
       <div class="category-title">🎬 Видео и голос</div>
-      <a class="tool-item" href="https://runwayml.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Runway</div>
-        <div class="tool-desc">Генерация и монтаж видео</div>
-      </a>
-      <a class="tool-item" href="https://elevenlabs.io/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">ElevenLabs</div>
-        <div class="tool-desc">Синтез речи высокого качества</div>
-      </a>
-      <a class="tool-item" href="https://www.descript.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Descript</div>
-        <div class="tool-desc">Монтаж аудио/видео через текст</div>
-      </a>
-      <a class="tool-item" href="https://www.veed.io/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">VEED</div>
-        <div class="tool-desc">Онлайн-редактор видео с ИИ</div>
-      </a>
+      <a class="tool-item" href="https://runwayml.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Runway</div><div class="tool-desc">Генерация и монтаж видео</div></a>
+      <a class="tool-item" href="https://elevenlabs.io/" target="_blank" rel="noopener noreferrer"><div class="tool-name">ElevenLabs</div><div class="tool-desc">Синтез речи высокого качества</div></a>
+      <a class="tool-item" href="https://www.descript.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Descript</div><div class="tool-desc">Монтаж аудио/видео через текст</div></a>
+      <a class="tool-item" href="https://www.veed.io/" target="_blank" rel="noopener noreferrer"><div class="tool-name">VEED</div><div class="tool-desc">Онлайн-редактор видео с ИИ</div></a>
     </div>
 
-    <!-- 6. Маркетинг -->
     <div class="category">
       <div class="category-title">📈 Маркетинг</div>
-      <a class="tool-item" href="https://www.jasper.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Jasper</div>
-        <div class="tool-desc">Контент для блогов и рекламы</div>
-      </a>
-      <a class="tool-item" href="https://www.copy.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Copy.ai</div>
-        <div class="tool-desc">Тексты для e-mail, соцсетей, лендингов</div>
-      </a>
-      <a class="tool-item" href="https://www.surferseo.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">SurferSEO</div>
-        <div class="tool-desc">Оптимизация контента под SEO</div>
-      </a>
+      <a class="tool-item" href="https://www.jasper.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Jasper</div><div class="tool-desc">Контент для блогов и рекламы</div></a>
+      <a class="tool-item" href="https://www.copy.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Copy.ai</div><div class="tool-desc">Тексты для e-mail, соцсетей, лендингов</div></a>
+      <a class="tool-item" href="https://www.surferseo.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">SurferSEO</div><div class="tool-desc">Оптимизация контента под SEO</div></a>
     </div>
 
-    <!-- 7. Звонки -->
     <div class="category">
       <div class="category-title">📞 Звонки</div>
-      <a class="tool-item" href="https://www.hume.ai/voice" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Hume Voice</div>
-        <div class="tool-desc">Эмоциональный голосовой ИИ</div>
-      </a>
-      <a class="tool-item" href="https://coqui.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Coqui</div>
-        <div class="tool-desc">Голоса и TTS для приложений</div>
-      </a>
+      <a class="tool-item" href="https://www.hume.ai/voice" target="_blank" rel="noopener noreferrer"><div class="tool-name">Hume Voice</div><div class="tool-desc">Эмоциональный голосовой ИИ</div></a>
+      <a class="tool-item" href="https://coqui.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Coqui</div><div class="tool-desc">Голоса и TTS для приложений</div></a>
     </div>
 
-    <!-- 8. Обучение -->
     <div class="category">
       <div class="category-title">📚 Обучение</div>
-      <a class="tool-item" href="https://www.khanacademy.org/khan-labs" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Khanmigo</div>
-        <div class="tool-desc">Учебный ассистент от Khan Academy</div>
-      </a>
-      <a class="tool-item" href="https://www.quizlet.com/ai" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Quizlet Q-Chat</div>
-        <div class="tool-desc">Карточки и проверка знаний с ИИ</div>
-      </a>
+      <a class="tool-item" href="https://www.khanacademy.org/khan-labs" target="_blank" rel="noopener noreferrer"><div class="tool-name">Khanmigo</div><div class="tool-desc">Учебный ассистент от Khan Academy</div></a>
+      <a class="tool-item" href="https://www.quizlet.com/ai" target="_blank" rel="noopener noreferrer"><div class="tool-name">Quizlet Q-Chat</div><div class="tool-desc">Карточки и проверка знаний с ИИ</div></a>
     </div>
 
-    <!-- 9. Поддержка -->
     <div class="category">
       <div class="category-title">💬 Поддержка</div>
-      <a class="tool-item" href="https://www.zendesk.com/ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Zendesk AI</div>
-        <div class="tool-desc">Автоответы и помощь операторам</div>
-      </a>
-      <a class="tool-item" href="https://www.intercom.com/ai" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Intercom Fin</div>
-        <div class="tool-desc">ИИ-помощник для чата поддержки</div>
-      </a>
+      <a class="tool-item" href="https://www.zendesk.com/ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Zendesk AI</div><div class="tool-desc">Автоответы и помощь операторам</div></a>
+      <a class="tool-item" href="https://www.intercom.com/ai" target="_blank" rel="noopener noreferrer"><div class="tool-name">Intercom Fin</div><div class="tool-desc">ИИ-помощник для чата поддержки</div></a>
     </div>
 
-    <!-- 10. Генераторы -->
     <div class="category">
       <div class="category-title">🎲 Генераторы</div>
-      <a class="tool-item" href="https://suno.com/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name">Suno</div>
-        <div class="tool-desc">Генерация музыки по описанию</div>
-      </a>
-      <a class="tool-item" href="https://leonardo.ai/" target="_blank" rel="noopener noreferrer">
-        <div class="tool-name
+      <a class="tool-item" href="https://suno.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Suno</div><div class="tool-desc">Генерация музыки по описанию</div></a>
+      <a class="tool-item" href="https://leonardo.ai/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Leonardo AI</div><div class="tool-desc">Генерация и стилизация изображений</div></a>
+    </div>
+
+    <div class="category">
+      <div class="category-title">🔧 Расширения</div>
+      <a class="tool-item" href="https://www.readwise.io/read" target="_blank" rel="noopener noreferrer"><div class="tool-name">Readwise Reader</div><div class="tool-desc">Чтение и суммаризация статей с ИИ</div></a>
+      <a class="tool-item" href="https://www.grammarly.com/" target="_blank" rel="noopener noreferrer"><div class="tool-name">Grammarly</div><div class="tool-desc">Проверка грамматики и стиля</div></a>
+    </div>
+
+  </aside>
+
+  <main>
+    <div class="welcome-message">
+      <h1>Добро пожаловать!</h1>
+      <p>Выберите AI Tools в меню слева, чтобы увидеть коллекцию лучших ИИ‑инструментов для разработки, текста, изображений, видео и поиска.</p>
+    </div>
+  </main>
+
+  <script>
+    const btn = document.getElementById('toggleMenu');
+    const drawer = document.getElementById('drawer');
+    const open = () => { drawer.classList.add('open'); btn.setAttribute('aria-expanded','true'); };
+    const close = () => { drawer.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+    let visible = false; btn.addEventListener('click', () => { visible = !visible; visible ? open() : close(); });
+    open();
+  </script>
+</body>
+</html>
