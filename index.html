@@ -1,158 +1,199 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>~ $ ai-tools-hub</title>
-  <meta name="description" content="Альтернативные AI-инструменты по категориям в терминальном стиле"/>
-  <!-- WinBox.js -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/css/winbox.min.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>~ $ altern-ai-tools :: terminal hub</title>
+  <meta name="description" content="Альтернативные AI-инструменты по категориям в терминальном стиле. Модальные окна, подсказки, Fixedsys, тёмная палитра." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/css/winbox.min.css">
   <script src="https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/winbox.bundle.min.js"></script>
   <style>
-    :root{--bg:#000;--panel:#232323;--panel-2:#1a1a1a;--text:#fff;--muted:#ccc;--blue:#047be3;--yellow:#ffc600;--border:#444}
-    *{box-sizing:border-box}html,body{height:100%}
-    body{margin:0;background:#000;color:#fff;font:15px/1.6 Fixedsys,ui-monospace,Menlo,Consolas,monospace}
-    a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-    .term-bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;height:52px;padding:0 16px;background:#232323;border-bottom:1px solid var(--border)}
-    .dots{display:flex;gap:8px}.dot{width:12px;height:12px;border-radius:50%}.dot.red{background:#ff5f56}.dot.yellow{background:#ffbd2e}.dot.green{background:#27c93f}
-    .prompt{color:var(--yellow)}.title{color:var(--blue);font-weight:700}
-    .shell{max-width:1100px;margin:28px auto;padding:0 16px}
-    .line{display:flex;gap:10px}.ps1{color:var(--yellow)}.cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}
-    .cmd{background:#232323;border:1px solid var(--border);color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;transition:transform .12s ease,background .2s ease,border-color .2s ease;text-align:left;font-family:Fixedsys,ui-monospace,Menlo,Consolas,monospace}
-    .cmd:hover{transform:translateY(-1px);background:#1a1a1a;border-color:#666}.cmd b{color:var(--blue)}.hint{color:var(--muted);font-size:12px;margin-top:4px}
-    .win-content{display:none}
-    .wb-body{background:#232323!important;color:#fff!important;font-family:Fixedsys,ui-monospace,Menlo,Consolas,monospace!important}
-    .wb-body ul{padding-left:20px}.wb-body li{margin:8px 0}.wb-body a{color:var(--blue)}
+    :root{
+      --bg:#000; --panel:#232323; --panel-2:#1a1a1a; --text:#fff;
+      --muted:#c9c9c9; --blue:#23a8ff; --yellow:#ffd65a; --border:#3d3d3d;
+      --green:#27c93f; --red:#ff5f56; --orange:#ff9f0a; --link:#07a0ff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);
+      font:15px/1.55 Fixedsys, ui-monospace, Menlo, Consolas, monospace}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Terminal top bar */
+    .term-bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;
+      gap:12px;height:54px;padding:0 16px;background:var(--panel);
+      border-bottom:1px solid var(--border)}
+    .dots{display:flex;gap:8px}
+    .dot{width:12px;height:12px;border-radius:50%}
+    .dot.red{background:var(--red)}
+    .dot.yellow{background:var(--orange)}
+    .dot.green{background:var(--green)}
+    .prompt{color:var(--yellow)}
+    .title{color:var(--blue);font-weight:700;letter-spacing:.25px}
+
+    .shell{max-width:1200px;margin:28px auto;padding:0 16px}
+    .line{display:flex;gap:10px;align-items:baseline}
+    .ps1{color:var(--yellow)}
+    .cursor{display:inline-block;width:8px;height:16px;background:var(--yellow);
+      margin-left:6px;animation:blink 1s steps(1) infinite}
+    @keyframes blink{50%{opacity:.15}}
+
+    /* Category grid */
+    .cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:12px;margin-top:16px}
+    .cmd{background:var(--panel);border:1px solid var(--border);color:var(--text);
+      padding:12px 14px;border-radius:10px;cursor:pointer; text-align:left;
+      transition:transform .12s ease, background .2s ease, border-color .2s ease,
+      box-shadow .2s ease; position:relative}
+    .cmd:hover{transform:translateY(-1px);background:var(--panel-2);
+      border-color:#5a5a5a; box-shadow:0 2px 8px rgba(0,0,0,.35)}
+    .cmd b{color:var(--blue)}
+    .cmd .sub{display:block;color:var(--muted);font-size:12px;margin-top:6px}
+
+    /* Tooltip */
+    .tip{position:absolute;inset:auto 12px -8px auto;transform:translateY(100%);
+      background:#101010;border:1px solid var(--border);color:var(--muted);
+      font-size:12px;padding:6px 8px;border-radius:6px;white-space:nowrap;
+      opacity:0;pointer-events:none;transition:opacity .12s ease}
+    .cmd:hover .tip{opacity:1}
+
+    /* WinBox theming */
+    .wb-body{background:var(--panel)!important;color:var(--text)!important;
+      font-family:Fixedsys, ui-monospace, Menlo, Consolas, monospace!important}
+    .wb-title{font-family:inherit!important}
+    .wb-body ul{padding-left:18px}
+    .wb-body li{margin:6px 0}
+    .wb-body a{color:var(--link)}
+
+    /* Footer note */
+    .note{color:var(--muted);opacity:.85;font-size:12px;margin-top:18px}
+    .kbd{padding:1px 5px;border:1px solid var(--border);border-bottom-width:2px;
+      border-radius:4px;background:#111; font-size:11px}
   </style>
 </head>
 <body>
-  <div class="term-bar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><div class="prompt">~ $</div><div class="title">ai-tools-hub</div></div>
+  <div class="term-bar" role="banner" aria-label="terminal bar">
+    <div class="dots" aria-hidden="true">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    <div class="prompt">~ $</div>
+    <div class="title">altern-ai-tools :: hub</div>
+  </div>
+
   <main class="shell">
-    <div class="line"><span class="ps1">user@alt-ai</span>: <span class="prompt">~ $</span> help</div>
-    <div class="hint">Доступные команды. Нажмите на категорию, чтобы открыть окно с инструментами.</div>
-    <section class="cmds">
-      <button class="cmd" data-win="dev-tools"><b>ai</b> list dev</button>
-      <button class="cmd" data-win="text-tools"><b>ai</b> list text</button>
-      <button class="cmd" data-win="image-tools"><b>ai</b> list image</button>
-      <button class="cmd" data-win="audio-tools"><b>ai</b> list audio</button>
-      <button class="cmd" data-win="video-tools"><b>ai</b> list video</button>
-      <button class="cmd" data-win="research-tools"><b>ai</b> list research</button>
-      <button class="cmd" data-win="productivity-tools"><b>ai</b> list productivity</button>
-      <button class="cmd" data-win="infra-tools"><b>ai</b> list infra</button>
-      <button class="cmd" data-win="design-tools"><b>ai</b> list design</button>
-      <button class="cmd" data-win="misc-tools"><b>ai</b> list misc</button>
+    <div class="line"><span class="ps1">user@alt-ai</span>: <span class="prompt">~ $</span> help<span class="cursor" aria-hidden="true"></span></div>
+    <div class="note">Доступные команды-категории. Нажмите, чтобы открыть окно со списком инструментов.</div>
+
+    <section class="cmds" aria-label="AI categories">
+      <button class="cmd" data-win="dev" title="Среда разработки, код-ассистенты, IDE-плагины">
+        <b>ai</b> list dev <span class="sub">Разработка и код</span>
+        <span class="tip">Код-ассистенты, IDE и платформы</span>
+      </button>
+      <button class="cmd" data-win="text" title="Чат-ассистенты и генерация текста">
+        <b>ai</b> list text <span class="sub">Текст и чат</span>
+        <span class="tip">Модели чата, письма, копирайтинг</span>
+      </button>
+      <button class="cmd" data-win="image" title="Генерация и правка изображений">
+        <b>ai</b> list image <span class="sub">Изображения</span>
+        <span class="tip">Диффузия, редактирование, логотипы</span>
+      </button>
+      <button class="cmd" data-win="audio" title="Синтез и распознавание речи, аудиоредакторы">
+        <b>ai</b> list audio <span class="sub">Аудио/Речь</span>
+        <span class="tip">TTS, STT, саунд-дизайн</span>
+      </button>
+      <button class="cmd" data-win="video" title="Генерация и монтаж видео, субтитры">
+        <b>ai</b> list video <span class="sub">Видео</span>
+        <span class="tip">Монтаж, генерация клипов</span>
+      </button>
+      <button class="cmd" data-win="research" title="Исследование, поиск, LLM платформы, датасеты">
+        <b>ai</b> list research <span class="sub">Исследования / LLM / данные</span>
+        <span class="tip">Статьи, код, платформы</span>
+      </button>
+      <button class="cmd" data-win="productivity" title="Автоматизации, офис, заметки, интеграции">
+        <b>ai</b> list productivity <span class="sub">Продуктивность</span>
+        <span class="tip">Офис, таск-менеджмент</span>
+      </button>
+      <button class="cmd" data-win="infra" title="Фреймворки, API, inference, хостинг моделей">
+        <b>ai</b> list infra <span class="sub">Инфраструктура / интеграции</span>
+        <span class="tip">RAG, агенты, провайдеры</span>
+      </button>
+      <button class="cmd" data-win="design" title="UI/UX дизайн, прототипирование, макеты">
+        <b>ai</b> list design <span class="sub">Дизайн / UI</span>
+        <span class="tip">Прототипы, автолэйаут</span>
+      </button>
+      <button class="cmd" data-win="misc" title="Сборник прочих полезных AI-сервисов">
+        <b>ai</b> list misc <span class="sub">Разное</span>
+        <span class="tip">Инструменты вне категорий</span>
+      </button>
     </section>
+
+    <div class="note">Подсказка: наведите курсор, чтобы увидеть описания, нажмите — откроется окно. Перетаскивайте окна, закрепляйте, комбинируйте.</div>
   </main>
-  <div class="win-content" id="dev-tools">Разработка и код<ul>
-    <a href="https://github.com/features/copilot" rel="noopener" target="_blank">GitHub Copilot</a>
-    <a href="https://cursor.sh/" rel="noopener" target="_blank">Cursor</a>
-    <a href="https://codeium.com/" rel="noopener" target="_blank">Codeium</a>
-    <a href="https://tabnine.com/" rel="noopener" target="_blank">Tabnine</a>
-    <a href="https://huggingface.co/" rel="noopener" target="_blank">Hugging Face</a>
-    <a href="https://replit.com/ai" rel="noopener" target="_blank">Replit AI</a>
-  </ul></div>
-  <div class="win-content" id="text-tools">Текст и чат<ul>
-    <a href="https://chatgpt.com/" rel="noopener" target="_blank">ChatGPT</a>
-    <a href="https://claude.ai/" rel="noopener" target="_blank">Claude</a>
-    <a href="https://gemini.google.com/" rel="noopener" target="_blank">Gemini</a>
-    <a href="https://www.jasper.ai/" rel="noopener" target="_blank">Jasper</a>
-    <a href="https://perplexity.ai/" rel="noopener" target="_blank">Perplexity</a>
-    <a href="https://novelai.net/" rel="noopener" target="_blank">NovelAI</a>
-  </ul></div>
-  <div class="win-content" id="image-tools">Изображения<ul>
-    <a href="https://www.midjourney.com/" rel="noopener" target="_blank">Midjourney</a>
-    <a href="https://openai.com/dall-e-3" rel="noopener" target="_blank">DALL·E</a>
-    <a href="https://stability.ai/" rel="noopener" target="_blank">Stable Diffusion</a>
-    <a href="https://ideogram.ai/" rel="noopener" target="_blank">Ideogram</a>
-    <a href="https://www.canva.com/" rel="noopener" target="_blank">Canva</a>
-  </ul></div>
-  <div class="win-content" id="audio-tools">Аудио/Речь<ul>
-    <a href="https://elevenlabs.io/" rel="noopener" target="_blank">ElevenLabs</a>
-    <a href="https://www.openai.com/research/whisper" rel="noopener" target="_blank">Whisper</a>
-    <a href="https://www.descript.com/" rel="noopener" target="_blank">Descript</a>
-    <a href="https://voicemod.net/" rel="noopener" target="_blank">Voicemod</a>
-  </ul></div>
-  <div class="win-content" id="video-tools">Видео<ul>
-    <a href="https://runwayml.com/" rel="noopener" target="_blank">Runway</a>
-    <a href="https://pika.art/" rel="noopener" target="_blank">Pika</a>
-    <a href="https://kapwing.com/" rel="noopener" target="_blank">Kapwing</a>
-    <a href="https://www.veed.io/" rel="noopener" target="_blank">VEED</a>
-  </ul></div>
-  <div class="win-content" id="research-tools">Исследования / LLM / данные<ul>
-    <a href="https://arxiv.org/" rel="noopener" target="_blank">arXiv</a>
-    <a href="https://paperswithcode.com/" rel="noopener" target="_blank">Papers with Code</a>
-    <a href="https://www.kaggle.com/" rel="noopener" target="_blank">Kaggle</a>
-    <a href="https://platform.openai.com/" rel="noopener" target="_blank">OpenAI Platform</a>
-    <a href="https://cloud.google.com/vertex-ai" rel="noopener" target="_blank">Vertex AI</a>
-    <a href="https://huggingface.co/spaces" rel="noopener" target="_blank">HF Spaces</a>
-  </ul></div>
-  <div class="win-content" id="productivity-tools">Продуктивность<ul>
-    <a href="https://zapier.com/" rel="noopener" target="_blank">Zapier</a>
-    <a href="https://ifttt.com/" rel="noopener" target="_blank">IFTTT</a>
-    <a href="https://notion.so/" rel="noopener" target="_blank">Notion AI</a>
-    <a href="https://microsoft.com/" rel="noopener" target="_blank">Microsoft Copilot</a>
-    <a href="https://slack.com/" rel="noopener" target="_blank">Slack AI</a>
-  </ul></div>
-  <div class="win-content" id="infra-tools">Инфраструктура / интеграции<ul>
-    <a href="https://langchain.com/" rel="noopener" target="_blank">LangChain</a>
-    <a href="https://llamaindex.ai/" rel="noopener" target="_blank">LlamaIndex</a>
-    <a href="https://api.nvidia.com/" rel="noopener" target="_blank">NVIDIA APIs</a>
-    <a href="https://openrouter.ai/" rel="noopener" target="_blank">OpenRouter</a>
-    <a href="https://replicate.com/" rel="noopener" target="_blank">Replicate</a>
-  </ul></div>
-  <div class="win-content" id="design-tools">Дизайн / UI<ul>
-    <a href="https://uizard.io/" rel="noopener" target="_blank">Uizard</a>
-    <a href="https://www.figma.com/ai/" rel="noopener" target="_blank">Figma AI</a>
-    <a href="https://framer.com/ai" rel="noopener" target="_blank">Framer AI</a>
-  </ul></div>
-  <div class="win-content" id="misc-tools">Разное<ul>
-    <a href="https://www.copy.ai/" rel="noopener" target="_blank">Copy.ai</a>
-    <a href="https://www.notion.so/product/ai" rel="noopener" target="_blank">Notion AI</a>
-    <a href="https://airtable.com/" rel="noopener" target="_blank">Airtable AI</a>
-  </ul></div>
-  <script>
-    const openWindows = new Map();
-    const spacing = 14;
-    function labelFor(id){
-      switch(id){
-        case 'dev-tools': return 'Разработка и код';
-        case 'text-tools': return 'Текст и чат';
-        case 'image-tools': return 'Изображения';
-        case 'audio-tools': return 'Аудио/Речь';
-        case 'video-tools': return 'Видео';
-        case 'research-tools': return 'Исследования / LLM / данные';
-        case 'productivity-tools': return 'Продуктивность';
-        case 'infra-tools': return 'Инфраструктура / интеграции';
-        case 'design-tools': return 'Дизайн / UI';
-        case 'misc-tools': return 'Разное';
-        default: return 'AI Tools';
-      }
-    }
-    function makeWin(id){
-      const title = labelFor(id);
-      const node = document.getElementById(id);
-      if(!node) return;
-      if(openWindows.has(id)) { openWindows.get(id).focus(); return; }
-      const box = new WinBox({
-        title,
-        background: '#232323',
-        border: 1,
-        class: ['no-full','modern'],
-        x: spacing + (openWindows.size%3)*(360+spacing),
-        y: 84 + Math.floor(openWindows.size/3)*(260+spacing),
-        width: 380,
-        height: 280,
-        html: node.innerHTML,
-        onclose(){ openWindows.delete(id); }
-      });
-      openWindows.set(id, box);
-    }
-    document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.cmd');
-      if(!btn) return;
-      const id = btn.getAttribute('data-win');
-      if(id) makeWin(id);
-    });
-  </script>
-</body>
-</html>
+
+  <!-- Hidden content for windows -->
+  <section id="dev" class="win-content" hidden>
+    <ul>
+      <li><a href="https://github.com/features/copilot" title="Автодополнение и чат в IDE" target="_blank" rel="noopener">GitHub Copilot</a></li>
+      <li><a href="https://cursor.sh/" title="IDE с нейро-ассистентом" target="_blank" rel="noopener">Cursor</a></li>
+      <li><a href="https://codeium.com/" title="Бесплатный автокомплит и чат" target="_blank" rel="noopener">Codeium</a></li>
+      <li><a href="https://tabnine.com/" title="Автодополнение кода на локали" target="_blank" rel="noopener">Tabnine</a></li>
+      <li><a href="https://huggingface.co/" title="Модели, датасеты, Spaces" target="_blank" rel="noopener">Hugging Face</a></li>
+      <li><a href="https://replit.com/ai" title="Онлайн-IDE с ИИ" target="_blank" rel="noopener">Replit AI</a></li>
+      <li><a href="https://stackblitz.com/" title="Браузерная среда разработки" target="_blank" rel="noopener">StackBlitz</a></li>
+      <li><a href="https://www.jetbrains.com/ai/" title="JetBrains AI Assistant" target="_blank" rel="noopener">JetBrains AI</a></li>
+    </ul>
+  </section>
+
+  <section id="text" class="win-content" hidden>
+    <ul>
+      <li><a href="https://chatgpt.com/" title="ChatGPT, режимы и плагины" target="_blank" rel="noopener">ChatGPT</a></li>
+      <li><a href="https://claude.ai/" title="Anthropic Claude" target="_blank" rel="noopener">Claude</a></li>
+      <li><a href="https://gemini.google.com/" title="Google Gemini" target="_blank" rel="noopener">Gemini</a></li>
+      <li><a href="https://perplexity.ai/" title="Ответы с цитатами, веб-поиск" target="_blank" rel="noopener">Perplexity</a></li>
+      <li><a href="https://www.jasper.ai/" title="Маркетинговые тексты" target="_blank" rel="noopener">Jasper</a></li>
+      <li><a href="https://writesonic.com/" title="Генерация копирайта" target="_blank" rel="noopener">Writesonic</a></li>
+      <li><a href="https://novelai.net/" title="Генерация историй и арта" target="_blank" rel="noopener">NovelAI</a></li>
+      <li><a href="https://notion.so/product/ai" title="Помощник в заметках" target="_blank" rel="noopener">Notion AI</a></li>
+    </ul>
+  </section>
+
+  <section id="image" class="win-content" hidden>
+    <ul>
+      <li><a href="https://www.midjourney.com/" title="Генерация изображений в Discord" target="_blank" rel="noopener">Midjourney</a></li>
+      <li><a href="https://openai.com/dall-e-3" title="DALL·E 3 от OpenAI" target="_blank" rel="noopener">DALL·E</a></li>
+      <li><a href="https://stability.ai/" title="Stable Diffusion / SDXL" target="_blank" rel="noopener">Stable Diffusion</a></li>
+      <li><a href="https://ideogram.ai/" title="Текст-на-изображении" target="_blank" rel="noopener">Ideogram</a></li>
+      <li><a href="https://www.canva.com/" title="Дизайн с ИИ" target="_blank" rel="noopener">Canva</a></li>
+      <li><a href="https://clipdrop.co/" title="Улучшение фото и вырезание" target="_blank" rel="noopener">Clipdrop</a></li>
+      <li><a href="https://magnific.ai/" title="Супер-апскейл и детали" target="_blank" rel="noopener">Magnific</a></li>
+    </ul>
+  </section>
+
+  <section id="audio" class="win-content" hidden>
+    <ul>
+      <li><a href="https://elevenlabs.io/" title="Синтез речи, клоны голосов" target="_blank" rel="noopener">ElevenLabs</a></li>
+      <li><a href="https://www.openai.com/research/whisper" title="Распознавание речи" target="_blank" rel="noopener">Whisper</a></li>
+      <li><a href="https://www.descript.com/" title="Монтаж подкастов и видео" target="_blank" rel="noopener">Descript</a></li>
+      <li><a href="https://voicemod.net/" title="Изменение голоса" target="_blank" rel="noopener">Voicemod</a></li>
+      <li><a href="https://podcast.adobe.com/" title="Звук-улучшайзер" target="_blank" rel="noopener">Adobe Podcast</a></li>
+    </ul>
+  </section>
+
+  <section id="video" class="win-content" hidden>
+    <ul>
+      <li><a href="https://runwayml.com/" title="Генерация/редактирование видео" target="_blank" rel="noopener">Runway</a></li>
+      <li><a href="https://pika.art/" title="Генерация коротких клипов" target="_blank" rel="noopener">Pika</a></li>
+      <li><a href="https://kapwing.com/" title="Видеоредактор онлайн" target="_blank" rel="noopener">Kapwing</a></li>
+      <li><a href="https://www.veed.io/" title="Онлайн-монтаж" target="_blank" rel="noopener">VEED</a></li>
+      <li><a href="https://www.descript.com/" title="Текстовый монтаж" target="_blank" rel="noopener">Descript</a></li>
+    </ul>
+  </section>
+
+  <section id="research" class="win-content" hidden>
+    <ul>
+      <li><a href="https://arxiv.org/" title="Научные препринты" target="_blank" rel="noopener">arXiv</a></li>
+      <li><a href="https://paperswithcode.com/" title="Статьи с кодом" target="_blank" rel="noopener">Papers with Code</a
